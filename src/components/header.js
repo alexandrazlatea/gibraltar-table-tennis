@@ -42,7 +42,6 @@ class Header extends React.Component {
             <div className="header-component">
                 <header class="header">
                     <div class="header__logo-box">
-                        <img src={(usersData && usersData.profile_image) ? usersData.profile_image : ''} alt="Logo" class="header__logo"></img>
                     </div>
                     <div class="header__text-box">
                         <h1 class="heading-primary">
