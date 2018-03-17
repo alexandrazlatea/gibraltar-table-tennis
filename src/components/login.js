@@ -28,9 +28,9 @@ class Login extends React.Component{
             friends: response.friends.summary.total_count,
             current_date: new Date(),
             birthday: (response.birthday) ? response.birthday : '',
-            hometown: (response.hometown.name) ? response.hometown.name : '',
-            location: (response.location.name) ? response.location.name : '',
-            profile_image: (response.picture.data.url) ? response.picture.data.url : '',
+            hometown: (response.hometown) ? response.hometown.name : '',
+            location: (response.location) ? response.location.name : '',
+            profile_image: (response.picture) ? response.picture.data.url : '',
         });
 
         localStorage['userId'] = response.id;
