@@ -8,7 +8,7 @@ class Footer extends React.Component {
                 <div className="row">
                     <div className="col-1-of-2">
                         <div className="footer__navigation">
-                            Contact: zlatea.alexandra@gmail.com
+                            Contact: bravotuaistil@gmail.com
                         </div>
                     </div>
                     <div className="col-1-of-2">

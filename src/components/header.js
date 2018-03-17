@@ -63,17 +63,17 @@ class Header extends React.Component {
                         <div class="col-1">
                             <h3 class="heading-tertiary u-margin-bottom-small">Despre sistemul de votare</h3>
                             <p class="paragraph">
-                                Bine ati venit pe singurul site care reda aproape 90% realitatea voturilor celebrului
+                                Bine ai venit pe singurul site care redă aproape 90% realitatea voturilor celebrului
                                 show de televiziune
                                 Bravo ai Stil!
 
-                                L-am creat din cauza disputelor intre concurente cum ca s-ar face conturi false si unele
+                                L-am creat din cauza disputelor intre concurente cum că s-ar face conturi false si unele
                                 concurente sunt votate
                                 de pe conturi false. Tocmai de accea am interzis votarea de pe conturile care au un
                                 numar mic de prieteni.
-                                De pe un singur cont de facebook se poate vota o singura data.
+                                De pe un singur cont de facebook se poate vota o singura dată.
 
-                                Sistemul va fi resetat in fiecare luni. Haideti sa vedem cine e cea mai buna.
+                                Sistemul va fi resetat in fiecare luni. Haideti să vedem cine e cea mai bună.
                             </p>
 
                         </div>
