@@ -1,7 +1,7 @@
 import {fire} from '../fire';
 
 export function fetchUsersData() {
-    let messagesRef = fire.database().ref('user');
+    let messagesRef = fire.database().ref('users');
     return dispatch => {
         messagesRef.on('value', snapshot => {
             dispatch({
