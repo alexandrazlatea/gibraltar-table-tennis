@@ -12,7 +12,7 @@ class Ranking extends Component {
         this.props.fetchUsersData();
     }
 
-    componentWillReceiveProps(nextprops) {
+    componentWillReceiveProps(nextProps) {
 
     }
 

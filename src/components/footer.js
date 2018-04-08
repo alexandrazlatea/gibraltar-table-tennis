@@ -12,9 +12,9 @@ class Footer extends React.Component {
                         </div>
                     </div>
                     <div className="col-1-of-2">
-                        <p className="footer__copyright">
-                            <p class="copyright">Copyright © 2018 All rights reserved. </p>
-                        </p>
+                        <div className="footer__copyright">
+                            <div className="copyright">Copyright © 2018 All rights reserved. </div>
+                        </div>
                     </div>
                 </div>
             </footer>

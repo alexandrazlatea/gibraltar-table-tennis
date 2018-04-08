@@ -9,6 +9,7 @@ import Ranking from '../components/Ranking';
 import LoginPopUp from '../components/LoginPopUp';
 import ChalelngeUser from '../components/ChalelngeUser';
 import _ from 'lodash';
+import * as classnames from 'classnames';
 
 class Header extends React.Component {
 
@@ -60,7 +61,7 @@ class Header extends React.Component {
         let challengeUser = false;
 
         // create your components
-        return sortedUsers.map(function(user) {
+        return sortedUsers.map(function(user, i) {
             let challengeUser = false;
             if (currentUser) {
                 if (Math.abs(parseInt(currentUser.rank) - parseInt(user.rank)) <= 2 && Math.abs(parseInt(currentUser.rank) - parseInt(user.rank)) > 0) {
@@ -68,7 +69,7 @@ class Header extends React.Component {
                 }
             }
             return(
-                <li>{user.rank} {user.email}  {challengeUser && <ChalelngeUser user={user} currentUser={currentUser} /> } </li>
+                <li key={i}>{user.rank} {user.email}  {challengeUser && <ChalelngeUser user={user} currentUser={currentUser} /> } </li>
             );
         });
 
@@ -77,42 +78,50 @@ class Header extends React.Component {
     render() {
         const {usersData} = this.props;
         const prof = (usersData && usersData.profile_image) ? usersData.profile_image : '';
+        const headerClassnames = classnames({
+            "header" : true,
+            "header--disabled": this.state.showLoginPopUp
+        });
+        const sectionClassnames = classnames({
+            "section-about" : true,
+            "section-about--disabled": this.state.showLoginPopUp
+        });
         return (
             <div className="header-component">
-                <header class="header">
-                    <div class="header__logo-box">
+                {this.state.showLoginPopUp && <LoginPopUp getCurrentUser={this.saveCurrentUser} onHide={this.onHide}/> }
+                <header className={headerClassnames}>
+                    <div className="header__logo-box">
                     </div>
-                    <div class="header__text-box">
-                        <h1 class="heading-primary">
-                            <span class="heading-primary--main">Office</span>
-                            <span class="heading-primary--sub">table tennis</span>
+                    <div className="header__text-box">
+                        <h1 className="heading-primary">
+                            <span className="heading-primary--main">Office</span>
+                            <span className="heading-primary--sub">table tennis</span>
                         </h1>
 
                         {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin()} className="btn btn--white btn--animated">Login</button> }
                     </div>
-                    {this.state.showLoginPopUp && <LoginPopUp getCurrentUser={this.saveCurrentUser} onHide={this.onHide}/> }
 
                 </header>
 
-                <section class="section-about">
-                    <div class="u-center-text u-margin-bottom-big">
-                        <h2 class="heading-secondary">
+                <section className={sectionClassnames}>
+                    <div className="u-center-text u-margin-bottom-big">
+                        <h2 className="heading-secondary">
 
                         </h2>
 
                     </div>
 
-                    <div class="row">
-                        <div class="col-1-of-2">
-                            <h3 class="heading-tertiary u-margin-bottom-small"> Ranking </h3>
+                    <div className="row">
+                        <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Ranking </h3>
                             <Ranking />
                             <ul>
                                 {this.renderUsers()}
                             </ul>
                         </div>
-                        <div class="col-1-of-2">
-                            <h3 class="heading-tertiary u-margin-bottom-small"> Rules </h3>
-                            <p class="paragraph">
+                        <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Rules </h3>
+                            <p className="paragraph">
                                 1. New players may join the ladder at any time, entering at the bottom of their chosen skill group. <br></br>
                                 2. At any time, you may challenge either of the players ranked one or two places above you,
                             by sending email to that player.<br></br>

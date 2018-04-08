@@ -27,8 +27,22 @@
   to { transform: rotate(360deg); }
 }
 
-form {
-  border: 3px solid #f1f1f1;
+.login-form {
+    width: 500px;
+    max-width: 80%;
+    position: fixed;
+    background-color: white;
+    top: 50%;
+    z-index: 1000;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+    font-size: 16px;
+}
+
+.login-form-title {
+  text-align: center;
+  margin-top: 12px;
 }
 
 /* Full-width inputs */
@@ -78,7 +92,8 @@ img.avatar {
 
 /* Add padding to containers */
 .container {
-  padding: 16px;
+  padding: 8px 16px;
+  border-bottom: solid 1px;
 }
 
 /* The "Forgot password" text */
@@ -115,4 +130,16 @@ span.psw {
   .cancelbtn {
     width: 100%;
   }
+}
+
+.header--disabled {
+  background: rgba(0, 0, 0, 0.8) !important;
+  opacity: 0.8 !important;
+  pointer-events: none !important;
+}
+
+.section-about--disabled {
+  background: rgba(0, 0, 0, 0.8) !important;
+  opacity: 0.8 !important;
+  pointer-events: none !important;
 }
