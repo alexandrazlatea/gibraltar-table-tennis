@@ -8,12 +8,9 @@ import './index.css';
 import App from './App';
 import {createStore, applyMiddleware} from 'redux';
 import registerServiceWorker from './registerServiceWorker';
-import ReduxPromise from 'redux-promise';
-import reducers from './reducers';
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import rootReducer from './reducers';
-import PrivacyPolicy from './components/PrivacyPolicy';
 
 const store = createStore(
     rootReducer,
@@ -25,7 +22,6 @@ ReactDOM.render(
         <BrowserRouter>
             <div className="">
                 <Switch>
-                    <Route path="/privacy-policy" component={PrivacyPolicy}/>
                     <Route path="" component={App}/>
                 </Switch>
             </div>

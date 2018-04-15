@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import { fire } from '../fire';
+import {renderView} from "../actions";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 
 class LoginPopUp extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '', password: '', errorMessage: '' };
+        this.state = { value: '', password: '', errorMessage: '', firstName: '', lastName: '' };
     }
 
     handleChange = (event) => {
         this.setState({ value: event.target.value });
+    }
+    handleChangeFirstName = (event) => {
+        this.setState({ firstName: event.target.value });
+    }
+    handleChangeLastName = (event) => {
+        this.setState({ lastName: event.target.value });
     }
 
     handleChangePassword = (event) => {
@@ -20,6 +29,9 @@ class LoginPopUp extends Component {
         event.preventDefault();
         const username = this.state.value;
         const pass = this.state.password;
+        const firstName = this.state.firstName;
+        const lastName = this.state.lastName;
+        console.log(firstName);
         fire.auth().createUserWithEmailAndPassword(username, pass).then((response) => {
             // [END createwithemail]
             // callSomeFunction(); Optional
@@ -32,11 +44,14 @@ class LoginPopUp extends Component {
                     fire.database().ref('users').push({
                         user_id: user.uid,
                         email: user.email,
+                        firstName: firstName,
+                        lastName: lastName,
                         rank: snapshot.numChildren() + 1
                     });
                 }
             })
             this.props.getCurrentUser(user);
+            this.props.renderView(Math.floor(Math.random() * 90 + 10));
             this.props.onHide();
         }, (error) => {
             // Handle Errors here.
@@ -46,6 +61,8 @@ class LoginPopUp extends Component {
                     let user = fire.auth().currentUser;
                     this.setState({ errorMessage: '' });
                     this.props.getCurrentUser(user);
+                    this.props.renderView(Math.floor(Math.random() * 90 + 10));
+
                     this.props.onHide();
                 }, (err) => {
                     console.log(err.message);
@@ -75,7 +92,6 @@ class LoginPopUp extends Component {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
     render() {
-        console.log('intra aici login pop up');
         const divStyle = {
             backgroundColor: '#f1f1f1'
         };
@@ -84,7 +100,9 @@ class LoginPopUp extends Component {
                 <p className="login-form-title"><b>Log In / Sign Up</b></p>
                 <form onSubmit={this.handleSubmit}>
                     <div className="container">
-                        <input type="text" onChange={this.handleChange} placeholder="Enter Username" name="uname" />
+                        <input type="text" onChange={this.handleChangeFirstName} placeholder="First Name" name="uname" />
+                        <input type="text" onChange={this.handleChangeLastName} placeholder="Last Name" name="uname" />
+                        <input type="text" onChange={this.handleChange} placeholder="Enter email" name="uname" />
                         <input type="password" onChange={this.handleChangePassword} placeholder="Enter Password" name="pwd" />
                         <button type="submit">Login / Sign Up</button>
                     </div>
@@ -98,4 +116,10 @@ class LoginPopUp extends Component {
     }
 }
 
-export default LoginPopUp;
+function mapDispatchtoProps(dispatch) {
+    return bindActionCreators({renderView}, dispatch);
+}
+
+export default connect(null, mapDispatchtoProps)(LoginPopUp);
+
+

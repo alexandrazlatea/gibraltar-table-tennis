@@ -27,6 +27,29 @@
   to { transform: rotate(360deg); }
 }
 
+.row li {
+  font-size: 18px;
+  list-style: none;
+  border: 1px solid #ece8e8;
+  min-height: 54px;
+}
+
+
+
+.row li span {
+  float: left;
+  width: 80%;
+}
+
+.row li .challenge-user {
+  float:left;
+  right:0;
+}
+
+.row .currentUser {
+  color: #bb1c1c;
+}
+
 .login-form {
     width: 500px;
     max-width: 80%;
@@ -120,6 +143,24 @@ span.psw {
   bottom: 25%;
   margin: auto;
   background: white;
+}
+.next-game {
+  font-size:16px;
+  display:block;
+}
+.played-games {
+  font-size: 18px;
+}
+.next-game input {
+  max-width: 9%;
+  margin: 0 10px;
+  padding: 4px 20px;
+}
+
+.next-game button {
+  max-width: 73px;
+  padding: 7px 4px;
+  margin: 0 12px;
 }
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {

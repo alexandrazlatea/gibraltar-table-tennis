@@ -1,21 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import ReduxThunk from 'redux-thunk';
 
 import {fire} from "../fire";
 import {fetchUsersData}  from '../actions/index';
+import {fetchChalenges}  from '../actions/index';
 import {bindActionCreators} from 'redux';
 import Ranking from '../components/Ranking';
 import LoginPopUp from '../components/LoginPopUp';
-import ChalelngeUser from '../components/ChalelngeUser';
-import _ from 'lodash';
+import NextGames from '../components/NextGames';
+import GamesPlayed from '../components/GamesPlayed';
 import * as classnames from 'classnames';
 
 class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: '', showLoginPopUp : false};
+        this.state = {users: '', showLoginPopUp : false, challenges : ''};
     }
 
     componentDidMount() {
@@ -25,16 +25,12 @@ class Header extends React.Component {
     }
     checkLoginState() {
         fire.auth().onAuthStateChanged(user => {
-             console.log(user);
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({users: nextProps.usersData});
-    }
+
 
     saveCurrentUser = (user) => {
-        console.log(user);
         localStorage['userId'] = user.uid;
     }
 
@@ -43,39 +39,13 @@ class Header extends React.Component {
     }
 
     onClickLogin = () => {
-        console.log('click login');
         this.setState({showLoginPopUp: !this.state.showLoginPopUp});
     }
 
-    renderUsers = () => {
 
-        var sortedUsers = _.sortBy(this.state.users, 'rank', function(n) {
-            return Math.sin(n);
-        });
-        let currentUser = '';
-        if (localStorage['userId']) {
-             currentUser = sortedUsers.find((user) => {
-                return user.user_id === localStorage['userId'];
-            })
-        }
-        let challengeUser = false;
-
-        // create your components
-        return sortedUsers.map(function(user, i) {
-            let challengeUser = false;
-            if (currentUser) {
-                if (Math.abs(parseInt(currentUser.rank) - parseInt(user.rank)) <= 2 && Math.abs(parseInt(currentUser.rank) - parseInt(user.rank)) > 0) {
-                    challengeUser = true;
-                }
-            }
-            return(
-                <li key={i}>{user.rank} {user.email}  {challengeUser && <ChalelngeUser user={user} currentUser={currentUser} /> } </li>
-            );
-        });
-
-    }
 
     render() {
+        console.log(this.state.challenges, 'challenges');
         const {usersData} = this.props;
         const prof = (usersData && usersData.profile_image) ? usersData.profile_image : '';
         const headerClassnames = classnames({
@@ -114,9 +84,8 @@ class Header extends React.Component {
                     <div className="row">
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Ranking </h3>
-                            <Ranking />
                             <ul>
-                                {this.renderUsers()}
+                                <Ranking />
                             </ul>
                         </div>
                         <div className="col-1-of-2">
@@ -143,20 +112,23 @@ class Header extends React.Component {
 
 
                     </div>
+                    <div className="row">
+                        <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Next Games </h3>
+                            <NextGames />
+                        </div>
+                        <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Played Games </h3>
+                            <GamesPlayed />
+                        </div>
+
+
+                    </div>
                 </section>
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        usersData: state.usersData
-    }
-}
 
-function mapDispatchtoProps(dispatch) {
-    return bindActionCreators({fetchUsersData}, dispatch);
-}
-
-export default connect (mapStateToProps, mapDispatchtoProps)(Header);
+export default (Header);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Girls from './components/girls';
+import './css/style.css';
+
 import Header from './components/header';
 import Footer from "./components/footer";
 
