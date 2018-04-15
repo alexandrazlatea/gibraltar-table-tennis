@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {fire} from "../fire";
 import {fetchUsersData}  from '../actions/index';
 import {fetchChalenges}  from '../actions/index';
 import _ from 'lodash';
 import ChalelngeUser from './ChallengeUser';
 
-import * as classnames from 'classnames';
 
 class Ranking extends Component {
     constructor(props) {
@@ -26,7 +24,7 @@ class Ranking extends Component {
         this.setState({challenges: nextProps.challenges, renderView: nextProps.renderView});
     }
     isUserChallenged = (user, challenges)=> {
-        if (challenges != '') {
+        if (challenges !== '') {
             challenges = _.sortBy(challenges, 'user_id', function(n) {
                 return Math.sin(n);
             });
@@ -78,19 +76,19 @@ class Ranking extends Component {
             let buttonText = 'Challenge';
             let currentUserClass = '';
             if (currentUser) {
-                if (Math.abs(parseInt(currentUser.rank) - parseInt(user.rank)) <= 2 && Math.abs(parseInt(currentUser.rank) - parseInt(user.rank)) > 0) {
+                if (Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank, 10)) <= 2 && Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank,10)) > 0) {
                     isUserChallendedValue = this.isUserChallenged(user, challenges);
                     challengeUser = true;
                 }
-                if ( currentUser.user_id == user.user_id ) {
+                if ( currentUser.user_id === user.user_id ) {
                     currentUserClass = 'currentUser';
                 }
             }
             if (challengeMade || challengesReceived) {
-                if ((challengeMade && user.user_id == challengeMade.challengedUser) || (challengesReceived && user.user_id == challengesReceived.user_id)  && userIsChallenged == false && isUserChallendedValue == false) {
-                    buttonText = 'Play game';
+                if ((challengeMade && user.user_id === challengeMade.challengedUser) || ((challengesReceived && user.user_id === challengesReceived.user_id)  && !userIsChallenged && !isUserChallendedValue)) {
+                    buttonText = 'To be played';
                     userIsChallenged = true;
-                } else if (userIsChallenged == true || challengeMade || challengesReceived || isUserChallendedValue) {
+                } else if (userIsChallenged === true || challengeMade || challengesReceived || isUserChallendedValue) {
                     buttonText = '';
                 }
             } else if (isUserChallendedValue) {

@@ -1,23 +1,15 @@
 import React, {Component} from 'react';
-import SendEmail from '../components/SendEmails';
 import {fire} from "../fire";
 
 class ChallengeUser extends Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     handleClick = () => {
-        const {user, currentUser} = this.props;
-        this.sendEmail();
-    }
-
-    componentWillReceiveProps(nextProps) {
+        const {buttonText} = this.props;
+        if (buttonText !== 'To be played') {
+            this.sendEmail();
+        }
     }
 
     sendEmail = () => {
-        console.log('intr aici');
         const {user, currentUser} = this.props;
         fire.database().ref('chalenge').push({
             active: 1,

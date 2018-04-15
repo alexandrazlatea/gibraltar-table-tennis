@@ -1,10 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 import {fire} from "../fire";
-import {fetchUsersData}  from '../actions/index';
-import {fetchChalenges}  from '../actions/index';
-import {bindActionCreators} from 'redux';
 import Ranking from '../components/Ranking';
 import LoginPopUp from '../components/LoginPopUp';
 import NextGames from '../components/NextGames';
@@ -15,7 +11,7 @@ class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: '', showLoginPopUp : false, challenges : ''};
+        this.state = {users: '', showLoginPopUp : false, challenges : '', type: ''};
     }
 
     componentDidMount() {
@@ -38,16 +34,13 @@ class Header extends React.Component {
         this.setState({showLoginPopUp: !this.state.showLoginPopUp});
     }
 
-    onClickLogin = () => {
-        this.setState({showLoginPopUp: !this.state.showLoginPopUp});
+    onClickLogin = (type) => {
+        this.setState({showLoginPopUp: !this.state.showLoginPopUp, type: type});
     }
 
 
 
     render() {
-        console.log(this.state.challenges, 'challenges');
-        const {usersData} = this.props;
-        const prof = (usersData && usersData.profile_image) ? usersData.profile_image : '';
         const headerClassnames = classnames({
             "header" : true,
             "header--disabled": this.state.showLoginPopUp
@@ -58,7 +51,7 @@ class Header extends React.Component {
         });
         return (
             <div className="header-component">
-                {this.state.showLoginPopUp && <LoginPopUp getCurrentUser={this.saveCurrentUser} onHide={this.onHide}/> }
+                {this.state.showLoginPopUp && <LoginPopUp type={this.state.type}  getCurrentUser={this.saveCurrentUser} onHide={this.onHide}/> }
                 <header className={headerClassnames}>
                     <div className="header__logo-box">
                     </div>
@@ -68,7 +61,10 @@ class Header extends React.Component {
                             <span className="heading-primary--sub">table tennis</span>
                         </h1>
 
-                        {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin()} className="btn btn--white btn--animated">Login</button> }
+                        {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin('login')} className="btn btn--white btn--animated">Login</button> }
+                        {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin('signup')} className="btn btn--white btn--animated">Sign up</button> }
+                        {localStorage['userId'] && <h2>Welcome</h2> }
+
                     </div>
 
                 </header>
@@ -96,14 +92,9 @@ class Header extends React.Component {
                             by sending email to that player.<br></br>
                                 3. The match must occur within one week of the challenge. If a challenged player is unable to play
                         during that week, or if the challenger receives no reply within a week, then the challenger wins by forfeit.<br></br>
-                                4. A challenged player will not be required to play more than one match per week. If a second
-                    challenge occurs within the same week, the challenged player may postpone the challenge until the next week.<br></br>
-                                5. If a player issues a challenge and then is challenged from below before the first match takes place,
-                the second challenge is held in abeyance until the first match is resolved. For example, suppose player #4 has challenged #3,
-                but then receives a challenge from player #6. If #4 beats #3, the challenge from #6 is no longer valid. However, if #4 loses to
-                #3, the challenge from #6 becomes valid, and should be played within one week.<br></br>
-                                6. A match will consist of two games played to 15 points each. If each side wins one game,
-            then a third game is played to 11 points. You only win points when you are serving, and you don't need to win by two points.<br></br>
+                                4. A challenged player will not be required to play more than one match per week. <br></br>
+                                5. You can challenge only one player. <br></br>
+                                6. A match will consist of 3 of 5 games played to 11 points each.<br></br>
                                 7. The winner of the match should report the scores using the Match Report form. If the challenger
         wins, the two players shall swap ranks, and the ladder will be updated.<br></br>
                             </p>

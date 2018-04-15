@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Footer extends React.Component {
+class Footer extends Component {
     render() {
         return (
             <footer className="footer">
@@ -8,7 +8,7 @@ class Footer extends React.Component {
                 <div className="row">
                     <div className="col-1-of-2">
                         <div className="footer__navigation">
-                            Contact: bravotuaistil@gmail.com
+                            Contact: zlatea.alexandra@gmail.com
                         </div>
                     </div>
                     <div className="col-1-of-2">

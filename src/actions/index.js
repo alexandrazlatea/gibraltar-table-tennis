@@ -61,7 +61,7 @@ export function SwapRanks(user_id, challengedUser, firstScor, secondScore) {
             let queryChallenged = fire.database().ref('users').orderByChild("user_id").equalTo(challengedUser);
             queryChallenged.on("child_added", (snapshotChallenged) => {
                 let userChallengedRank = snapshotChallenged.val().rank;
-                if ((userRank < userChallengedRank) && (firstScor > secondScore) || (userRank > userChallengedRank) && (firstScor < secondScore)) {
+                if (((userRank < userChallengedRank) && (firstScor > secondScore)) || ((userRank > userChallengedRank) && (firstScor < secondScore))) {
                     query.on("child_added", (snapshotUser) => {
                         snapshotUser.ref.update({rank: userChallengedRank})
                     });

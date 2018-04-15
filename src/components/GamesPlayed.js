@@ -6,7 +6,7 @@ import {bindActionCreators} from "redux";
 class GamesPlayed extends Component {
     constructor(props) {
         super(props);
-        this.state = ({playedGames : '', users : ''});
+        this.state = ({playedGames: '', users: ''});
     }
 
     componentWillReceiveProps(nextProps) {
@@ -19,26 +19,34 @@ class GamesPlayed extends Component {
     }
 
     getUsername = (id) => {
-        console.log(this.state.users);
         const user = Object.values(this.state.users).find((user) => {
-            return (user.user_id == id);
+            return (user.user_id === id);
         })
         return user.firstName + ' ' + user.lastName;
     }
     renderPlayerGames = () => {
         let {playedGames} = this.state;
-        return Object.values(playedGames).map((game, index) => {
+        if (playedGames) {
+            return Object.values(playedGames).map((game, index) => {
+                return (
+                    <div className="game" key={index + game.user_id}>
+                        <span> {index + 1}. </span>
+                        <span className="first-user">{this.getUsername(game.challengedUser)}</span>
+                        <span> {game.first_score} - {game.second_score} </span>
+                        <span className="second-user">{this.getUsername(game.user_id)}</span>
+                    </div>
+                )
+            });
+        } else {
             return (
                 <div className="game">
-                    <span> {index + 1}. </span>
-                    <span className="first-user">{this.getUsername(game.user_id)}</span>
-                    <span> {game.first_score} - {game.second_score} </span>
-                    <span className="second-user">{this.getUsername(game.challengedUser)}</span>
+                    No games played yet.
                 </div>
-            )
-        });
+            );
+        }
     }
-    render () {
+
+    render() {
         return (
             <div className="played-games">
                 {this.renderPlayerGames()}
@@ -59,7 +67,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchtoProps(dispatch) {
-    return bindActionCreators({renderView,fetchPlayedGames}, dispatch);
+    return bindActionCreators({renderView, fetchPlayedGames}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(GamesPlayed);

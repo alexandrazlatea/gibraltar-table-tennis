@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Route,  Switch} from 'react-router-dom';
 
 import ReactDOM from 'react-dom';

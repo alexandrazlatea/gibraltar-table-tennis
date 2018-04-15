@@ -8,8 +8,10 @@ import {bindActionCreators} from "redux";
 class LoginPopUp extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '', password: '', errorMessage: '', firstName: '', lastName: '' };
+        this.state = { value: '', password: '', errorMessage: '', firstName: '', lastName: '', type: ''};
     }
+
+
 
     handleChange = (event) => {
         this.setState({ value: event.target.value });
@@ -39,7 +41,7 @@ class LoginPopUp extends Component {
             this.setState({ errorMessage: '' });
             let count = 0;
             fire.database().ref("users").on("value", function (snapshot) {
-                if (count == 0) {
+                if (count === 0) {
                     count = count + 1;
                     fire.database().ref('users').push({
                         user_id: user.uid,
@@ -56,7 +58,7 @@ class LoginPopUp extends Component {
         }, (error) => {
             // Handle Errors here.
             const errorCode = error.code;
-            if (errorCode == 'auth/email-already-in-use') {
+            if (errorCode === 'auth/email-already-in-use') {
                 fire.auth().signInWithEmailAndPassword(username, pass).then((response) => {
                     let user = fire.auth().currentUser;
                     this.setState({ errorMessage: '' });
@@ -95,16 +97,18 @@ class LoginPopUp extends Component {
         const divStyle = {
             backgroundColor: '#f1f1f1'
         };
+        console.log(this.state.type);
         return (
             <div className="login-form" ref={this.setWrapperRef}>
-                <p className="login-form-title"><b>Log In / Sign Up</b></p>
+                <p className="login-form-title"><b>{this.props.type === 'login' ? 'Log In' : 'Sign Up'} </b></p>
                 <form onSubmit={this.handleSubmit}>
                     <div className="container">
-                        <input type="text" onChange={this.handleChangeFirstName} placeholder="First Name" name="uname" />
-                        <input type="text" onChange={this.handleChangeLastName} placeholder="Last Name" name="uname" />
+                        {this.props.type === 'signup' && <input type="text" onChange={this.handleChangeFirstName} placeholder="First Name" name="uname" /> }
+                        {this.props.type === 'signup' && <input type="text" onChange={this.handleChangeLastName} placeholder="Last Name" name="uname" /> }
                         <input type="text" onChange={this.handleChange} placeholder="Enter email" name="uname" />
                         <input type="password" onChange={this.handleChangePassword} placeholder="Enter Password" name="pwd" />
-                        <button type="submit">Login / Sign Up</button>
+                        {this.props.type === 'signup' && <button type="submit">Sign Up</button> }
+                        {this.props.type === 'login' && <button type="submit">Log In</button> }
                     </div>
                     {this.state.errorMessage}
                     <div className="container" style={divStyle}>

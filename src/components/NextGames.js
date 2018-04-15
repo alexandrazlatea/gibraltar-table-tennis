@@ -59,7 +59,7 @@ class NextGames extends Component {
             });
             return challenges.map((challenge, index) => {
                 return (
-                    <div className="next-game">
+                    <div className="next-game" key={index + challenge.user_id}>
                         <span> {index + 1}. </span>
                         <span className="first-user">{challenge.userName}</span>
                         {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
