@@ -580,7 +580,7 @@ body {
   text-transform: uppercase;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  margin-bottom: 6rem; }
+  }
 .heading-primary--main {
   display: block;
   font-size: 6rem;
@@ -1340,7 +1340,7 @@ body {
   height: 3.5rem; }
 .header__text-box {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
