@@ -77,7 +77,7 @@ class Ranking extends Component {
             let currentUserClass = '';
             if (currentUser) {
                 if (Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank, 10)) <= 2 && Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank,10)) > 0) {
-                    isUserChallendedValue = this.isUserChallenged(user, challenges);
+                    userIsChallenged = this.isUserChallenged(user, challenges);
                     challengeUser = true;
                 }
                 if ( currentUser.user_id === user.user_id ) {
@@ -85,13 +85,13 @@ class Ranking extends Component {
                 }
             }
             if (challengeMade || challengesReceived) {
-                if ((challengeMade && user.user_id === challengeMade.challengedUser) || ((challengesReceived && user.user_id === challengesReceived.user_id)  && !userIsChallenged && !isUserChallendedValue)) {
+                if ((challengeMade && user.user_id === challengeMade.challengedUser) || ((challengesReceived && user.user_id === challengesReceived.user_id)  && userIsChallenged)) {
                     buttonText = 'To be played';
                     userIsChallenged = true;
-                } else if (userIsChallenged === true || challengeMade || challengesReceived || isUserChallendedValue) {
+                } else if (userIsChallenged || challengeMade || challengesReceived) {
                     buttonText = '';
                 }
-            } else if (isUserChallendedValue) {
+            } else if (userIsChallenged) {
                 buttonText = '';
             }
             return(
