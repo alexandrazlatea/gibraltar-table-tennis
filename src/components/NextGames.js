@@ -63,10 +63,10 @@ class NextGames extends Component {
                         <span> {index + 1}. </span>
                         <span className="first-user">{challenge.userName}</span>
                         {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
-                        <input onChange={this.handleChangeFirstName} name="first_score" type="text"></input>}
+                        <input onChange={this.handleChangeFirstName} name="first_score" type="number" className="quantity"></input>}
                         <span> - </span>
                         {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
-                        <input onChange={this.handleChangeSecondName} name="last_score" type="text"></input>}
+                        <input onChange={this.handleChangeSecondName} name="last_score" type="number" className="quantity"></input>}
                         <span className="second-user">{challenge.userChallengedName}</span>
                         {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
                         <button onClick={() => this.handleSubmit(challenge)}>Save</button>}

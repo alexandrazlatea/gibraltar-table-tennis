@@ -7,5 +7,16 @@ var config = {
     storageBucket: "",
     messagingSenderId: "308584425018"
 };
+
+/*
+var config = {
+    apiKey: "AIzaSyAULDfIUoV0BYQXPS5l6QkijGM3tuwdiFA",
+    authDomain: "tabletennis-test.firebaseapp.com",
+    databaseURL: "https://tabletennis-test.firebaseio.com",
+    projectId: "tabletennis-test",
+    storageBucket: "tabletennis-test.appspot.com",
+    messagingSenderId: "184582267824"
+};
+*/
 export const  fire = firebase.initializeApp(config);
 
