@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {fetchUsersData}  from '../actions/index';
 import {fetchChalenges}  from '../actions/index';
 import _ from 'lodash';
-import ChalelngeUser from './ChallengeUser';
+import ChallengeUser from './ChallengeUser';
 
 
 class Ranking extends Component {
@@ -94,8 +94,12 @@ class Ranking extends Component {
             } else if (userIsChallenged) {
                 buttonText = '';
             }
+            const userDataToShow = user.rank + '. ' + user.firstName + ' ' + user.lastName;
             return(
-                <li key={i} className={currentUserClass}><span>{user.rank} {user.email}</span>   {challengeUser && <ChalelngeUser buttonText={buttonText} challengeMade = {challengeMade} challengesReceived = {challengesReceived}   user={user} currentUser={currentUser} /> } </li>
+                <li key={i} className={currentUserClass}>
+                    <div className={challengeUser ? 'trim-name' : ''}>{userDataToShow}</div>
+                    {challengeUser && <ChallengeUser buttonText={buttonText} challengeMade = {challengeMade} challengesReceived = {challengesReceived}   user={user} currentUser={currentUser} /> } 
+                </li>
             );
         });
 

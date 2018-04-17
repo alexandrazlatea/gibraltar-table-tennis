@@ -34,18 +34,6 @@
   min-height: 54px;
 }
 
-
-
-.row li span {
-  float: left;
-  width: 80%;
-}
-
-.row li .challenge-user {
-  float:left;
-  right:0;
-}
-
 .row .currentUser {
   color: #bb1c1c;
 }
@@ -82,11 +70,12 @@ input[type=text], input[type=password] {
 button {
   background-color: #4CAF50;
   color: white;
-  padding: 9px 15px;
-  margin: 8px 0;
+  padding: 9px 0;
+  margin: 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 80px;
+  border-radius: 2px;
 }
 
 /* Add a hover effect for buttons */
@@ -145,8 +134,9 @@ span.psw {
   background: white;
 }
 .next-game {
-  font-size:16px;
-  display:block;
+  font-size: 16px;
+  display: block;
+  text-transform: capitalize;
 }
 .played-games {
   font-size: 18px;
@@ -188,4 +178,40 @@ span.psw {
   background: rgba(0, 0, 0, 0.8) !important;
   opacity: 0.8 !important;
   pointer-events: none !important;
+}
+
+.ranking {
+  text-transform: capitalize;
+}
+
+.ranking li {
+  margin: 4px 0;
+  border-radius: 2px;
+  min-width: 300px;
+  max-width: 600px;
+  position: relative;
+}
+
+.ranking li div {
+  display: inline-block;
+  margin-left: 16px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: calc(100% - 32px);
+}
+
+.ranking li .trim-name {
+  max-width: calc(100% - 112px);
+}
+
+.ranking li .challenge-user {
+  margin-right: 16px;
+  margin-left: 0;
+  position: absolute;
+  right: 0;
 }
