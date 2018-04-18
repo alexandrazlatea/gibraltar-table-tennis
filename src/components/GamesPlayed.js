@@ -22,7 +22,10 @@ class GamesPlayed extends Component {
         const user = Object.values(this.state.users).find((user) => {
             return (user.user_id === id);
         })
-        return user.firstName + ' ' + user.lastName;
+        if (user) {
+            return user.firstName + ' ' + user.lastName;
+        }
+        return '';
     }
     renderPlayerGames = () => {
         let {playedGames} = this.state;

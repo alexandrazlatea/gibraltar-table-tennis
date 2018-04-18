@@ -6,12 +6,15 @@ import LoginPopUp from '../components/LoginPopUp';
 import NextGames from '../components/NextGames';
 import GamesPlayed from '../components/GamesPlayed';
 import * as classnames from 'classnames';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {renderView} from "../actions/index";
 
 class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: '', showLoginPopUp : false, challenges : '', type: ''};
+        this.state = {users: '', showLoginPopUp : false, challenges : '', type: '', renderHeader: ''};
     }
 
     componentDidMount() {
@@ -19,12 +22,15 @@ class Header extends React.Component {
             this.checkLoginState();
         }
     }
-    checkLoginState() {
+    checkLoginState =  () => {
         fire.auth().onAuthStateChanged(user => {
+           if (!user || (user && user.uid !== localStorage['userId']))  {
+               localStorage.removeItem('userId');
+               this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
+               this.renderView();
+           }
         });
     }
-
-
 
     saveCurrentUser = (user) => {
         localStorage['userId'] = user.uid;
@@ -37,9 +43,6 @@ class Header extends React.Component {
     onClickLogin = (type) => {
         this.setState({showLoginPopUp: !this.state.showLoginPopUp, type: type});
     }
-
-
-
     render() {
         const headerClassnames = classnames({
             "header" : true,
@@ -121,5 +124,8 @@ class Header extends React.Component {
     }
 }
 
+function mapDispatchtoProps(dispatch) {
+    return bindActionCreators({renderView}, dispatch);
+}
 
-export default (Header);
+export default connect(null, mapDispatchtoProps)(Header);

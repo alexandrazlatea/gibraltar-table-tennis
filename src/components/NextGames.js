@@ -35,7 +35,6 @@ class NextGames extends Component {
             first_score: firstScore,
             second_score: secondScore,
         });
-        console.log('update chalenge');
         this.props.updateChallenge(challenge.user_id, 'handle');
         this.props.SwapRanks(challenge.user_id, challenge.challengedUser, firstScore, secondScore);
 
@@ -62,13 +61,13 @@ class NextGames extends Component {
                     <div className="next-game" key={index + challenge.user_id}>
                         <span> {index + 1}. </span>
                         <span className="first-user">{challenge.userName}</span>
-                        {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
+                        {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
                         <input onChange={this.handleChangeFirstName} name="first_score" type="number" className="quantity"></input>}
                         <span> - </span>
-                        {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
+                        {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
                         <input onChange={this.handleChangeSecondName} name="last_score" type="number" className="quantity"></input>}
                         <span className="second-user">{challenge.userChallengedName}</span>
-                        {(currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser) &&
+                        {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
                         <button onClick={() => this.handleSubmit(challenge)}>Save</button>}
                     </div>
                 )
