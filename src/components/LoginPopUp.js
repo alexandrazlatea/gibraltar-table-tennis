@@ -47,7 +47,8 @@ class LoginPopUp extends Component {
                             email: user.email,
                             firstName: firstName,
                             lastName: lastName,
-                            rank: snapshot.numChildren() + 1
+                            rank: snapshot.numChildren() + 1,
+                            current_date: Math.floor(Date.now() / 1000)
                         });
                     }
                 })

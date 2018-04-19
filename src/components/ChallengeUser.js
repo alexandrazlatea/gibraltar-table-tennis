@@ -17,7 +17,7 @@ class ChallengeUser extends Component {
             challengedUser : user.user_id,
             userName : user.firstName + ' ' + user.lastName,
             userChallengedName : currentUser.firstName + ' ' + currentUser.lastName,
-            current_date: new Date().getTime(),
+            current_date: Math.floor(Date.now() / 1000),
         });
     }
 

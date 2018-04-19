@@ -148,6 +148,12 @@ span.psw {
   padding: 4px 20px;
 }
 
+.date-played {
+  font-size: 16px;
+  display: inline;
+  margin-right: 29px;
+}
+
 .next-game button {
   max-width: 73px;
   padding: 7px 4px;

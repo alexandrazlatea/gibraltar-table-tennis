@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {renderView, fetchPlayedGames} from "../actions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import Timestamp from 'react-timestamp';
 
 class GamesPlayed extends Component {
     constructor(props) {
@@ -30,9 +31,10 @@ class GamesPlayed extends Component {
     renderPlayerGames = () => {
         let {playedGames} = this.state;
         if (playedGames) {
-            return Object.values(playedGames).map((game, index) => {
+            return Object.values(playedGames).reverse().map((game, index) => {
                 return (
                     <div className="game" key={index + game.user_id}>
+                        <div className="date-played"><Timestamp time={game.current_date} format={"date"} precision={2}/></div>
                         <span> {index + 1}. </span>
                         <span className="first-user">{this.getUsername(game.challengedUser)}</span>
                         <span> {game.first_score} - {game.second_score} </span>

@@ -31,7 +31,7 @@ class NextGames extends Component {
         fire.database().ref('games').push({
             user_id: challenge.user_id,
             challengedUser: challenge.challengedUser,
-            current_date: new Date().getTime(),
+            current_date: Math.floor(Date.now() / 1000),
             first_score: firstScore,
             second_score: secondScore,
         });
