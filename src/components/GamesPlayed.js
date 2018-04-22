@@ -5,7 +5,7 @@ import {bindActionCreators} from "redux";
 import Timestamp from 'react-timestamp';
 import * as classnames from 'classnames';
 import _ from 'lodash';
-import moment from 'moment'
+import moment from 'moment';
 
 class GamesPlayed extends Component {
     constructor(props) {

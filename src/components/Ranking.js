@@ -15,8 +15,8 @@ class Ranking extends Component {
             challenges : '', 
             renderView: '',
             currentPage: 1,
-            itemsPerPage: 10,
-            initialItemsPerPage: 10,
+            itemsPerPage: 20,
+            initialItemsPerPage: 20,
             sortedUsers: [],
             currentUser: null
         };
