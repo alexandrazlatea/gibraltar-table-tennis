@@ -78,15 +78,23 @@ class NextGames extends Component {
             return slicedChallenges.map((challenge, index) => {
                 return (
                     <div className="next-game" key={index + challenge.user_id}>
-                        <span className="first-user">{challenge.userName}</span>
+                        <div className="first-user">
+                            <div className="game-competitor">{challenge.userName}</div>
+                            {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
+                                <input onChange={this.handleChangeFirstName} name="first_score" type="number" className="quantity"></input>
+                            }
+                        </div>
+                        <div className="second-user">
+                            <div className="game-competitor">{challenge.userChallengedName}</div>
+                            {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
+                                <input onChange={this.handleChangeSecondName} name="last_score" type="number" className="quantity"></input>
+                            }
+                        </div>
                         {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
-                        <input onChange={this.handleChangeFirstName} name="first_score" type="number" className="quantity"></input>}
-                        <span> - </span>
-                        {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
-                        <input onChange={this.handleChangeSecondName} name="last_score" type="number" className="quantity"></input>}
-                        <span className="second-user">{challenge.userChallengedName}</span>
-                        {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
-                        <button onClick={() => this.handleSubmit(challenge)}>Save</button>}
+                            <div className="next-game-button">
+                                <button onClick={() => this.handleSubmit(challenge)}>Save</button>
+                            </div>
+                        }
                     </div>
                 )
             });

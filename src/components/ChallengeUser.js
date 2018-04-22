@@ -27,7 +27,7 @@ class ChallengeUser extends Component {
         objectArray['action'] = 'challenge';
         objectArray['to'] =  user.email;
         objectArray['subject'] = 'New Challenge';
-        objectArray['body'] = 'You have a new challenge from ' + currentUser.firstName + ' ' + currentUser.lastName + '.Please play your game in 3 days',
+        objectArray['body'] = 'You have a new challenge from ' + currentUser.firstName + ' ' + currentUser.lastName + '.Please play your game in 3 days';
 
         this.props.sendEmail( objectArray);
 

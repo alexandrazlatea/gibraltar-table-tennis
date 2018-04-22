@@ -44,11 +44,25 @@ class Ranking extends Component {
         }
 
         let currentUser = this.state.currentUser;
-        if ((localStorage['userId'] && !this.state.currentUser) || (localStorage['userId'] && this.state.currentUser && this.state.currentUser.user_id !== localStorage['userId'])) {
-            currentUser = sortedUsers.find((user) => {
-                return user.user_id === localStorage['userId'];
-            })
-            this.setState({currentUser});
+        if (localStorage['userId']) {
+            if (!this.state.currentUser || (currentUser && currentUser.user_id !== localStorage['userId'])) {
+                // if the current logged in user is not set in the state
+                // or a new user is being logged in
+                currentUser = sortedUsers.find((user) => {
+                    return user.user_id === localStorage['userId'];
+                })
+                this.setState({currentUser});
+            } else if (currentUser.user_id === localStorage['userId']) {
+                // the current user is the actual user, so update the ranking if it is changed
+                const newUser = sortedUsers.find((user) => {
+                    return user.user_id === localStorage['userId'];
+                });
+                if (newUser.rank !== currentUser.rank) {
+                    this.setState({
+                        currentUser: newUser
+                    });
+                }
+            }
         }
         
         if (this.state.currentUser && sortedUsers && sortedUsers.length > 0) {

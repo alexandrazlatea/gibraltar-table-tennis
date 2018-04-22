@@ -35,7 +35,7 @@
 }
 
 .row .currentUser {
-  color: #bb1c1c;
+  color: #4CAF50;
 }
 
 .login-form {
@@ -144,9 +144,12 @@ span.psw {
   min-width: 300px;
 }
 .next-game input {
-  width: 30px;
-  margin: 0 10px;
-  padding: 4px 8px;
+  width: 26px;
+  padding: 4px;
+  height: 100%;
+  border: 1px solid #948f8f;
+  box-shadow: none;
+  border-radius: 2px;
 }
 
 .date-played {
@@ -156,9 +159,13 @@ span.psw {
 }
 
 .next-game button {
-  max-width: 73px;
-  padding: 7px 4px;
-  margin: 0 12px;
+  max-width: 72px;
+  padding: 8px 4px;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  border-radius: 2px;
 }
 
 .quantity::-webkit-inner-spin-button,
@@ -285,10 +292,14 @@ span.psw {
   color: #2c632e;
 }
 
-.game {
+.game, .next-game {
   border: 1px solid #ece8e8;
   border-radius: 2px;
   margin: 8px;
+}
+
+.next-game {
+  border: 1px solid #948f8f;
 }
 
 .game-group {
@@ -311,17 +322,26 @@ span.psw {
   padding: 2px 8px;
 }
 
-.first-user-results {
+.first-user-results, .first-user {
   margin: 8px;
   border-bottom: 1px solid #ece8e8;
   margin-bottom: 4px;
   display: flex;
 }
 
-.second-user-results {
+.first-user {
+  padding-bottom: 4px;
+}
+
+.second-user-results, .second-user {
   margin: 8px;
   margin-top: 4px;
   display: flex;
+}
+
+.second-user {
+  margin-bottom: 0;
+  padding-bottom: 5px;
 }
 
 .competitor-results-won {
@@ -365,4 +385,16 @@ span.psw {
 
 .header {
   position: relative;
+}
+
+.next-games {
+  min-width: 300px;
+}
+
+.next-game-button {
+  position: relative;
+  height: 32px;
+  margin: 0 8px;
+  border-top: 1px solid #ece8e8;
+  margin-bottom: 8px;
 }

@@ -44,11 +44,22 @@ class GamesPlayed extends Component {
         if (playedGames && playedGames.length > 0) {
             const indexOfLastItem = currentPage * itemsPerPage;
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-            const slicedPlayedGames = playedGames.reverse().slice(indexOfFirstItem, indexOfLastItem);
 
+            const sortedPlayedGames = playedGames.sort((gameA, gameB) => {
+                if (gameA.current_date > gameB.current_date) {
+                    return -1;
+                }
+                if (gameA.current_date === gameB.current_date) {
+                    return 0;
+                }
+                return 1;
+            });
+
+            const slicedPlayedGames = sortedPlayedGames.slice(indexOfFirstItem, indexOfLastItem);
+            
             const groupedGames = _.groupBy(slicedPlayedGames, game => {
                 const timeStamp = game.current_date;
-                return moment.unix(timeStamp).format("YYYY-MM-DD");    
+                return moment.unix(timeStamp).format("YYYY-MMM-DD");    
             });
 
             return Object.keys(groupedGames).map((key, index) => {

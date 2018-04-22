@@ -82,13 +82,6 @@ class Header extends React.Component {
                 </header>
 
                 <section className={sectionClassnames}>
-                    <div className="u-center-text u-margin-bottom-big">
-                        <h2 className="heading-secondary">
-
-                        </h2>
-
-                    </div>
-
                     <div className="row">
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Ranking </h3>
