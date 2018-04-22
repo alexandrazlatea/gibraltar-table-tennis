@@ -4,17 +4,35 @@ import _ from 'lodash';
 import {fire} from "../fire";
 import {renderView, updateChallenge, SwapRanks} from "../actions/index";
 import {bindActionCreators} from "redux";
+import * as classnames from 'classnames';
 
 class NextGames extends Component {
     constructor(props) {
         super(props);
-        this.state = ({challenges: '', users: '', renderView: '', secondScore: '', firstScore: ''});
+        this.state = ({
+            challenges: [],
+            filteredChallenges: [],
+            users: '',
+            renderView: '', 
+            secondScore: '', 
+            firstScore: '',
+            currentPage: 1,
+            itemsPerPage: 10,
+            initialItemsPerPage: 10,
+        });
 
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({challenges : nextProps.challenges});
-        this.setState({users : nextProps.usersData, renderView: nextProps.renderView});
+        const filteredChallenges = nextProps.challenges ? Object.values(nextProps.challenges).filter((challenge) => {
+            return (challenge.active === 1);
+        }) : [];
+        this.setState({
+            challenges : nextProps.challenges ? Object.values(nextProps.challenges) : [],
+            filteredChallenges,
+            users : nextProps.usersData,
+            renderView: nextProps.renderView
+        });
     }
 
     handleChangeFirstName = (event) => {
@@ -37,7 +55,6 @@ class NextGames extends Component {
         });
         this.props.updateChallenge(challenge.user_id, 'handle');
         this.props.SwapRanks(challenge.user_id, challenge.challengedUser, firstScore, secondScore);
-
     }
 
     renderNextGames = () => {
@@ -50,16 +67,17 @@ class NextGames extends Component {
                 return (user.user_id === localStorage['userId']);
             })
         }
-        let challenges = this.state.challenges;
 
-        if (challenges) {
-            challenges = Object.values(challenges).filter((challenge) => {
-                return (challenge.active === 1);
-            });
-            return challenges.map((challenge, index) => {
+        const {filteredChallenges} = this.state;
+        if (filteredChallenges && filteredChallenges.length > 0) {
+            const {currentPage, itemsPerPage} = this.state;
+            const indexOfLastItem = currentPage * itemsPerPage;
+            const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+            const slicedChallenges = filteredChallenges.slice(indexOfFirstItem, indexOfLastItem);
+
+            return slicedChallenges.map((challenge, index) => {
                 return (
                     <div className="next-game" key={index + challenge.user_id}>
-                        <span> {index + 1}. </span>
                         <span className="first-user">{challenge.userName}</span>
                         {(currentUser && (currentUser.user_id === challenge.user_id || currentUser.user_id === challenge.challengedUser)) &&
                         <input onChange={this.handleChangeFirstName} name="first_score" type="number" className="quantity"></input>}
@@ -79,11 +97,58 @@ class NextGames extends Component {
             )
         }
     }
-    render () {
 
+    onPageChange = (event) => {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
+
+    onViewAllGamesClick = () => {
+        this.setState({
+            itemsPerPage: this.state.filteredChallenges.length,
+            currentPage: 1
+        });
+    }
+
+    onCollapseGamesClick = () => {
+        this.setState({
+            itemsPerPage: this.state.initialItemsPerPage,
+            currentPage: 1
+        });
+    }
+
+    render () {
+        // Logic for displaying page numbers
+        const {itemsPerPage, filteredChallenges, currentPage, initialItemsPerPage} = this.state; 
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(filteredChallenges.length / itemsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            const pageNumberClassnames = classnames({
+                'page-number-selected': number === currentPage
+            });
+            return (
+                <li key={number} id={number} className={pageNumberClassnames} onClick={this.onPageChange} >
+                    {number}
+                </li>
+                );
+        });
         return (
-            <div className="next-games">
-                {this.renderNextGames()}
+            <div>
+                <div className="next-games">
+                    {this.renderNextGames()}
+                </div>
+                {itemsPerPage === initialItemsPerPage && filteredChallenges.length > itemsPerPage &&  <ul className="page-numbers">
+                    {renderPageNumbers}
+                </ul>}
+                <div className='page-numbers-view-all'>
+                    {filteredChallenges.length > itemsPerPage && <span onClick={this.onViewAllGamesClick}>View All</span>}
+                    {itemsPerPage > initialItemsPerPage && <span onClick={this.onCollapseGamesClick}>Collapse</span>}
+                </div>
             </div>
         )
     }

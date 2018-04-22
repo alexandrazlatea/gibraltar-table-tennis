@@ -5,13 +5,21 @@ import {fetchUsersData}  from '../actions/index';
 import {fetchChalenges}  from '../actions/index';
 import _ from 'lodash';
 import ChallengeUser from './ChallengeUser';
-
+import * as classnames from 'classnames';
 
 class Ranking extends Component {
     constructor(props) {
         super(props);
-        this.state = {users: '', showLoginPopUp : false, challenges : '', renderView: ''};
-
+        this.state = {
+            showLoginPopUp : false, 
+            challenges : '', 
+            renderView: '',
+            currentPage: 1,
+            itemsPerPage: 10,
+            initialItemsPerPage: 10,
+            sortedUsers: [],
+            currentUser: null
+        };
     }
 
     componentDidMount() {
@@ -20,9 +28,36 @@ class Ranking extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({users: nextProps.usersData});
         this.setState({challenges: nextProps.challenges, renderView: nextProps.renderView});
+
+        var sortedUsers = _.sortBy(nextProps.usersData, 'rank', function(n) {
+            return Math.sin(n);
+        });
+        if (sortedUsers && sortedUsers.length > 0) {
+            this.setState({sortedUsers});
+        }
+
+        let currentUser = this.state.currentUser;
+        if ((localStorage['userId'] && !this.state.currentUser) || (localStorage['userId'] && this.state.currentUser && this.state.currentUser.user_id !== localStorage['userId'])) {
+            currentUser = sortedUsers.find((user) => {
+                return user.user_id === localStorage['userId'];
+            })
+            this.setState({currentUser});
+        }
+        
+        if (this.state.currentUser && sortedUsers && sortedUsers.length > 0) {
+            const indexOfCurrentUser = sortedUsers.indexOf(user => user.user_id === currentUser.user_id);
+            const currentPage = parseInt(indexOfCurrentUser / (this.state.itemsPerPage + 1), 10) + 1;
+            this.setState({currentPage});
+        }
     }
+
+    onPageChange = (event) => {
+        this.setState({
+            currentPage: Number(event.target.id)
+        });
+    }
+
     isUserChallenged = (user, challenges)=> {
         if (challenges !== '') {
             challenges = _.sortBy(challenges, 'user_id', function(n) {
@@ -40,19 +75,11 @@ class Ranking extends Component {
 
     renderUsers = () => {
         let { challenges } = this.props;
+        const {sortedUsers, currentPage, itemsPerPage, currentUser} = this.state;
 
-        var sortedUsers = _.sortBy(this.state.users, 'rank', function(n) {
-            return Math.sin(n);
-        });
-
-
-        let currentUser = '';
         let challengeMade = '';
         let challengesReceived = '';
-        if (localStorage['userId']) {
-            currentUser = sortedUsers.find((user) => {
-                return user.user_id === localStorage['userId'];
-            })
+        if (currentUser) {
             if (challenges) {
                 challenges = Object.values(challenges).filter((challenge) => {
                     return (challenge.active === 1);
@@ -70,9 +97,13 @@ class Ranking extends Component {
 
         // create your components
         let userIsChallenged = false;
-        return sortedUsers.map((user, i) => {
+
+        const indexOfLastItem = currentPage * itemsPerPage;
+        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        const currentSortedUsers = sortedUsers.slice(indexOfFirstItem, indexOfLastItem);
+
+        return currentSortedUsers.map((user, i) => {
             let challengeUser = false;
-            let isUserChallendedValue = false;
             let buttonText = 'Challenge';
             let currentUserClass = '';
             if (currentUser) {
@@ -105,10 +136,52 @@ class Ranking extends Component {
 
     }
 
+    onViewAllUsersClick = () => {
+        this.setState({
+            itemsPerPage: this.state.sortedUsers.length,
+            currentPage: 1
+        });
+    }
+
+    onCollapseUsersClick = () => {
+        this.setState({
+            itemsPerPage: this.state.initialItemsPerPage,
+            currentPage: 1
+        });
+    }
+
     render() {
+        // Logic for displaying page numbers
+        const {itemsPerPage, sortedUsers, currentPage, initialItemsPerPage} = this.state; 
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(sortedUsers.length / itemsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            const pageNumberClassnames = classnames({
+                'page-number-selected': number === currentPage
+            });
+            return (
+                <li key={number} id={number} className={pageNumberClassnames} onClick={this.onPageChange} >
+                    {number}
+                </li>
+                );
+        });
+
         return (
-            <div className="ranking">
-                {this.renderUsers()}
+            <div>
+                <div className="ranking">
+                    {this.renderUsers()}
+                </div>
+                {itemsPerPage === initialItemsPerPage && sortedUsers.length > itemsPerPage && <ul className="page-numbers">
+                    {renderPageNumbers}
+                </ul>}
+                <div className='page-numbers-view-all'>
+                    {sortedUsers.length > itemsPerPage && <span onClick={this.onViewAllUsersClick}>View All</span>}
+                    {itemsPerPage > initialItemsPerPage && <span onClick={this.onCollapseUsersClick}>Collapse</span>}
+                </div>
             </div>
         )
     }

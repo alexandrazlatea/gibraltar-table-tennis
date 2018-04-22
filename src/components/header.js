@@ -27,7 +27,7 @@ class Header extends React.Component {
            if (!user || (user && user.uid !== localStorage['userId']))  {
                localStorage.removeItem('userId');
                this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
-               this.renderView();
+               renderView();
            }
         });
     }
@@ -43,6 +43,13 @@ class Header extends React.Component {
     onClickLogin = (type) => {
         this.setState({showLoginPopUp: !this.state.showLoginPopUp, type: type});
     }
+
+    onClickLogout = () => {
+        localStorage.removeItem('userId');
+        this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
+        renderView(Math.floor(Math.random() * 90 + 10));
+    }
+
     render() {
         const headerClassnames = classnames({
             "header" : true,
@@ -66,10 +73,12 @@ class Header extends React.Component {
 
                         {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin('login')} className="btn btn--white btn--animated">Login</button> }
                         {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin('signup')} className="btn btn--white btn--animated">Sign up</button> }
-                        {localStorage['userId'] && <h2>Welcome</h2> }
+                        {localStorage['userId'] && <h2 className="welcome-header">Welcome</h2> }
 
                     </div>
-
+                    {localStorage['userId'] && <div className="header__logout" onClick={this.onClickLogout}>
+                        <span>Log Out</span>
+                    </div>}
                 </header>
 
                 <section className={sectionClassnames}>
@@ -88,6 +97,14 @@ class Header extends React.Component {
                             </ul>
                         </div>
                         <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Next Games </h3>
+                            <NextGames />
+                        </div>
+
+
+                    </div>
+                    <div className="row">
+                        <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Rules </h3>
                             <p className="paragraph">
                                 1. New players may join the ladder at any time, entering at the bottom of their chosen skill group. <br></br>
@@ -101,15 +118,6 @@ class Header extends React.Component {
                                 7. The winner of the match should report the scores using the Match Report form. If the challenger
         wins, the two players shall swap ranks, and the ladder will be updated.<br></br>
                             </p>
-
-                        </div>
-
-
-                    </div>
-                    <div className="row">
-                        <div className="col-1-of-2">
-                            <h3 className="heading-tertiary u-margin-bottom-small"> Next Games </h3>
-                            <NextGames />
                         </div>
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Played Games </h3>

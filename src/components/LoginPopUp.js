@@ -32,7 +32,7 @@ class LoginPopUp extends Component {
         const pass = this.state.password;
         const firstName = this.state.firstName;
         const lastName = this.state.lastName;
-        if (this.props.type == 'signup') {
+        if (this.props.type === 'signup') {
             fire.auth().createUserWithEmailAndPassword(username, pass).then((response) => {
                 // [END createwithemail]
                 // callSomeFunction(); Optional
@@ -57,13 +57,12 @@ class LoginPopUp extends Component {
                 this.props.onHide();
             }, (error) => {
                 // Handle Errors here.
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 this.setState({errorMessage: errorMessage});
             });
         }
 
-        if (this.props.type == 'login') {
+        if (this.props.type === 'login') {
             fire.auth().signInWithEmailAndPassword(username, pass).then((response) => {
                 let user = fire.auth().currentUser;
                 this.setState({errorMessage: ''});
