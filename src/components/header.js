@@ -27,7 +27,7 @@ class Header extends React.Component {
            if (!user || (user && user.uid !== localStorage['userId']))  {
                localStorage.removeItem('userId');
                this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
-               renderView();
+               this.props.renderView(Math.floor(Math.random() * 90 + 10));
            }
         });
     }
@@ -47,7 +47,7 @@ class Header extends React.Component {
     onClickLogout = () => {
         localStorage.removeItem('userId');
         this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
-        renderView(Math.floor(Math.random() * 90 + 10));
+        this.props.renderView(Math.floor(Math.random() * 90 + 10));
     }
 
     render() {

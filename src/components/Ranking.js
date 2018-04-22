@@ -30,6 +30,12 @@ class Ranking extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({challenges: nextProps.challenges, renderView: nextProps.renderView});
 
+        if (!localStorage['userId'] && this.state.currentUser) {
+            this.setState({
+                currentUser: null
+            });
+        }
+
         var sortedUsers = _.sortBy(nextProps.usersData, 'rank', function(n) {
             return Math.sin(n);
         });
