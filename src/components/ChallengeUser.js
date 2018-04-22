@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import {fire} from "../fire";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {sendEmail} from "../actions";
 
 class ChallengeUser extends Component {
     handleClick = () => {
         const {buttonText} = this.props;
         if (buttonText !== 'To be played') {
-            this.sendEmail();
+            this.sendEmails();
         }
     }
 
-    sendEmail = () => {
+    sendEmails = () => {
         const {user, currentUser} = this.props;
         fire.database().ref('chalenge').push({
             active: 1,
@@ -19,6 +22,15 @@ class ChallengeUser extends Component {
             userChallengedName : currentUser.firstName + ' ' + currentUser.lastName,
             current_date: Math.floor(Date.now() / 1000),
         });
+        const objectArray  = [];
+
+        objectArray['action'] = 'challenge';
+        objectArray['to'] =  user.email;
+        objectArray['subject'] = 'New Challenge';
+        objectArray['body'] = 'You have a new challenge from ' + currentUser.firstName + ' ' + currentUser.lastName + '.Please play your game in 3 days',
+
+        this.props.sendEmail( objectArray);
+
     }
 
     render() {
@@ -31,5 +43,8 @@ class ChallengeUser extends Component {
     }
 
 }
+function mapDispatchtoProps(dispatch) {
+    return bindActionCreators({sendEmail}, dispatch);
+}
 
-export default ChallengeUser;
+export default connect(null, mapDispatchtoProps)(ChallengeUser);
