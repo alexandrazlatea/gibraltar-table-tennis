@@ -17,7 +17,7 @@ export function sendEmail(data) {
     return dispatch => {
         axios({
             method: 'post',
-            url: 'https://dev-office-pingpong/php/sendEmail.php',
+            url: 'https://dev-office-pingpong.herokuapp.com/php/sendEmail.php',
             data: {action : data['action'], to: data['to'], subject: data['subject'], body: data['body'] } ,
             headers: {
                 'accept': 'application/json',
