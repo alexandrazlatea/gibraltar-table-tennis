@@ -1,4 +1,5 @@
 import {fire} from '../fire';
+import axios from 'axios';
 
 export function fetchUsersData() {
     let messagesRef = fire.database().ref('users');
@@ -11,6 +12,29 @@ export function fetchUsersData() {
         })
     }
 }
+
+export function sendEmail(data) {
+    return dispatch => {
+        axios({
+            method: 'post',
+            url: 'http://localhost/table-tennis/php/sendEmail.php',
+            data: {action : data['action'], to: data['to'], subject: data['subject'], body: data['body'] } ,
+            headers: {
+                'accept': 'application/json',
+                'accept-language': 'en_US',
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+        }).then(response => {
+            dispatch({
+                type: 'test',
+                payload: response.data
+            });
+        })
+    }
+
+}
+
+
 
 export function fetchChalenges() {
     let messagesRef = fire.database().ref('chalenge');
