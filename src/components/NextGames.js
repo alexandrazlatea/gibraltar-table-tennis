@@ -73,7 +73,8 @@ class NextGames extends Component {
             const {currentPage, itemsPerPage} = this.state;
             const indexOfLastItem = currentPage * itemsPerPage;
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-            const slicedChallenges = filteredChallenges.slice(indexOfFirstItem, indexOfLastItem);
+            const sortedFilteredChallenges = [...filteredChallenges].reverse();
+            const slicedChallenges = sortedFilteredChallenges.slice(indexOfFirstItem, indexOfLastItem);
 
             return slicedChallenges.map((challenge, index) => {
                 return (
