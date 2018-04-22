@@ -1,4 +1,4 @@
 {
-  "root": "build/server.js"
+  "root": "build/service-worker.js"
 
 }

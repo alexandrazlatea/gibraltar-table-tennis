@@ -17,7 +17,7 @@ export function sendEmail(data) {
     return dispatch => {
         axios({
             method: 'post',
-            url: 'http://localhost/table-tennis/php/sendEmail.php',
+            url: 'http://dev-office-pingpong/php/sendEmail.php',
             data: {action : data['action'], to: data['to'], subject: data['subject'], body: data['body'] } ,
             headers: {
                 'accept': 'application/json',
