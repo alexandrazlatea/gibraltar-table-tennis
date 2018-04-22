@@ -45,16 +45,7 @@ class GamesPlayed extends Component {
             const indexOfLastItem = currentPage * itemsPerPage;
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-            const sortedPlayedGames = playedGames.sort((gameA, gameB) => {
-                if (gameA.current_date > gameB.current_date) {
-                    return -1;
-                }
-                if (gameA.current_date === gameB.current_date) {
-                    return 0;
-                }
-                return 1;
-            });
-
+            const sortedPlayedGames = [...playedGames].reverse();
             const slicedPlayedGames = sortedPlayedGames.slice(indexOfFirstItem, indexOfLastItem);
             
             const groupedGames = _.groupBy(slicedPlayedGames, game => {
