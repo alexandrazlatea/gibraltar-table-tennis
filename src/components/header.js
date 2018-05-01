@@ -14,21 +14,30 @@ class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: '', showLoginPopUp : false, challenges : '', type: '', renderHeader: ''};
+        this.state = {
+            users: '',
+            showLoginPopUp: false,
+            challenges: '',
+            type: '',
+            renderHeader: '',
+            expiredChallenges: ''
+        };
     }
 
     componentDidMount() {
+
         if (localStorage['userId']) {
             this.checkLoginState();
         }
     }
-    checkLoginState =  () => {
+
+    checkLoginState = () => {
         fire.auth().onAuthStateChanged(user => {
-           if (!user || (user && user.uid !== localStorage['userId']))  {
-               localStorage.removeItem('userId');
-               this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
-               this.props.renderView(Math.floor(Math.random() * 90 + 10));
-           }
+            if (!user || (user && user.uid !== localStorage['userId'])) {
+                localStorage.removeItem('userId');
+                this.setState({renderHeader: Math.floor(Math.random() * 90 + 10)})
+                this.props.renderView(Math.floor(Math.random() * 90 + 10));
+            }
         });
     }
 
@@ -46,22 +55,23 @@ class Header extends React.Component {
 
     onClickLogout = () => {
         localStorage.removeItem('userId');
-        this.setState({renderHeader : Math.floor(Math.random() * 90 + 10)})
+        this.setState({renderHeader: Math.floor(Math.random() * 90 + 10)})
         this.props.renderView(Math.floor(Math.random() * 90 + 10));
     }
 
     render() {
         const headerClassnames = classnames({
-            "header" : true,
+            "header": true,
             "header--disabled": this.state.showLoginPopUp
         });
         const sectionClassnames = classnames({
-            "section-about" : true,
+            "section-about": true,
             "section-about--disabled": this.state.showLoginPopUp
         });
         return (
             <div className="header-component">
-                {this.state.showLoginPopUp && <LoginPopUp type={this.state.type}  getCurrentUser={this.saveCurrentUser} onHide={this.onHide}/> }
+                {this.state.showLoginPopUp &&
+                <LoginPopUp type={this.state.type} getCurrentUser={this.saveCurrentUser} onHide={this.onHide}/>}
                 <header className={headerClassnames}>
                     <div className="header__logo-box">
                     </div>
@@ -71,9 +81,13 @@ class Header extends React.Component {
                             <span className="heading-primary--sub">table tennis</span>
                         </h1>
 
-                        {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin('login')} className="btn btn--white btn--animated">Login</button> }
-                        {!this.state.showLoginPopUp && !localStorage['userId'] && <button onClick={() => this.onClickLogin('signup')} className="btn btn--white btn--animated">Sign up</button> }
-                        {localStorage['userId'] && <h2 className="welcome-header">Welcome</h2> }
+                        {!this.state.showLoginPopUp && !localStorage['userId'] &&
+                        <button onClick={() => this.onClickLogin('login')}
+                                className="btn btn--white btn--animated">Login</button>}
+                        {!this.state.showLoginPopUp && !localStorage['userId'] &&
+                        <button onClick={() => this.onClickLogin('signup')}
+                                className="btn btn--white btn--animated">Sign up</button>}
+                        {localStorage['userId'] && <h2 className="welcome-header">Welcome</h2>}
 
                     </div>
                     {localStorage['userId'] && <div className="header__logout" onClick={this.onClickLogout}>
@@ -86,12 +100,12 @@ class Header extends React.Component {
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Ranking </h3>
                             <ul>
-                                <Ranking />
+                                <Ranking/>
                             </ul>
                         </div>
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Next Games </h3>
-                            <NextGames />
+                            <NextGames/>
                         </div>
 
 
@@ -100,21 +114,25 @@ class Header extends React.Component {
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Rules </h3>
                             <p className="paragraph">
-                                1. New players may join the ladder at any time, entering at the bottom of their chosen skill group. <br></br>
-                                2. At any time, you may challenge either of the players ranked one or two places above you,
-                            by sending email to that player.<br></br>
-                                3. The match must occur within one week of the challenge. If a challenged player is unable to play
-                        during that week, or if the challenger receives no reply within a week, then the challenger wins by forfeit.<br></br>
-                                4. A challenged player will not be required to play more than one match per week. <br></br>
-                                5. You can challenge only one player. <br></br>
-                                6. A match will consist of 3 of 5 games played to 11 points each.<br></br>
-                                7. The winner of the match should report the scores using the Match Report form. If the challenger
-        wins, the two players shall swap ranks, and the ladder will be updated.<br></br>
+                                1. New players may join the ladder at any time, entering at the bottom of the
+                                ladder. <br></br>
+                                2. At any time, you may challenge either of the players ranked one , two or three places
+                                above you or bellow you.
+                                <br></br>
+                                3. The match must occur within 3 days of the challenge. If a challenged player is unable
+                                to play
+                                during those days please contact the admin to win by forfeit or otherwise the match will
+                                end 0-0. <br></br>
+                                4. You can challenge only one player. <br></br>
+                                5. A match will consist of 3 of 5 games played to 11 points each.<br></br>
+                                6. The winner of the match should report the scores using the Match Report form. If the
+                                challenger
+                                wins, the two players shall swap ranks, and the ladder will be updated.<br></br>
                             </p>
                         </div>
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Played Games </h3>
-                            <GamesPlayed />
+                            <GamesPlayed/>
                         </div>
 
 
