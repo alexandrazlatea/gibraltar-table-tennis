@@ -59,8 +59,17 @@ export function fetchPlayedGames() {
     }
 }
 
-export function updateChallenge(value, test) {
+export function updateChallenge(value, action, challenge = {}) {
     let query  = fire.database().ref('chalenge').orderByChild("user_id").equalTo(value);
+    if (action == 'expired') {
+        fire.database().ref('games').push({
+            user_id: challenge.user_id,
+            challengedUser: challenge.challengedUser,
+            current_date: Math.floor(Date.now() / 1000),
+            first_score: 0,
+            second_score: 0,
+        });
+    }
     var flag = false;
     return dispatch => {
         query.on("child_added",(snapshot) => {

@@ -5,6 +5,7 @@ import {fire} from "../fire";
 import {renderView, updateChallenge, SwapRanks} from "../actions/index";
 import {bindActionCreators} from "redux";
 import * as classnames from 'classnames';
+import moment from 'moment';
 
 class NextGames extends Component {
     constructor(props) {
@@ -46,16 +47,20 @@ class NextGames extends Component {
     handleSubmit = (challenge) => {
         const firstScore = this.state.firstScore;
         const secondScore = this.state.secondScore;
-        fire.database().ref('games').push({
-            user_id: challenge.user_id,
-            challengedUser: challenge.challengedUser,
-            current_date: Math.floor(Date.now() / 1000),
-            first_score: firstScore,
-            second_score: secondScore,
-        });
-        this.props.updateChallenge(challenge.user_id, 'handle');
-        this.props.SwapRanks(challenge.user_id, challenge.challengedUser, firstScore, secondScore);
+        if (firstScore && secondScore && (firstScore != secondScore) && firstScore <= 3 && secondScore <= 3 ) {
+            fire.database().ref('games').push({
+                user_id: challenge.user_id,
+                challengedUser: challenge.challengedUser,
+                current_date: Math.floor(Date.now() / 1000),
+                first_score: firstScore,
+                second_score: secondScore,
+            });
+            this.props.updateChallenge(challenge.user_id, 'handle');
+            this.props.SwapRanks(challenge.user_id, challenge.challengedUser, firstScore, secondScore);
+        }
     }
+
+
 
     renderNextGames = () => {
         let currentUser = '';
@@ -68,12 +73,13 @@ class NextGames extends Component {
             })
         }
 
-        const {filteredChallenges} = this.state;
+        let {filteredChallenges} = this.state;
         if (filteredChallenges && filteredChallenges.length > 0) {
             const {currentPage, itemsPerPage} = this.state;
             const indexOfLastItem = currentPage * itemsPerPage;
             const indexOfFirstItem = indexOfLastItem - itemsPerPage;
             const sortedFilteredChallenges = [...filteredChallenges].reverse();
+
             const slicedChallenges = sortedFilteredChallenges.slice(indexOfFirstItem, indexOfLastItem);
 
             return slicedChallenges.map((challenge, index) => {

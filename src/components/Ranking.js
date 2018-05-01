@@ -6,6 +6,8 @@ import {fetchChalenges}  from '../actions/index';
 import _ from 'lodash';
 import ChallengeUser from './ChallengeUser';
 import * as classnames from 'classnames';
+import ExpiredChallenges from '../components/expiredChallenges';
+
 
 class Ranking extends Component {
     constructor(props) {
@@ -25,6 +27,13 @@ class Ranking extends Component {
     componentDidMount() {
         this.props.fetchUsersData();
         this.props.fetchChalenges();
+        this.interval = setInterval(() => {
+            this.props.fetchChalenges();
+        }, 10000000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -127,7 +136,7 @@ class Ranking extends Component {
             let buttonText = 'Challenge';
             let currentUserClass = '';
             if (currentUser) {
-                if (Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank, 10)) <= 2 && Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank,10)) > 0) {
+                if (Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank, 10)) <= 3 && Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank,10)) > 0) {
                     userIsChallenged = this.isUserChallenged(user, challenges);
                     challengeUser = true;
                 }
@@ -202,6 +211,7 @@ class Ranking extends Component {
                     {sortedUsers.length > itemsPerPage && <span onClick={this.onViewAllUsersClick}>View All</span>}
                     {itemsPerPage > initialItemsPerPage && <span onClick={this.onCollapseUsersClick}>Collapse</span>}
                 </div>
+                <ExpiredChallenges />
             </div>
         )
     }
