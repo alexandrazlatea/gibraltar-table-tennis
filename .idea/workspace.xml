@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a1218ac-5e28-4ec5-ad3b-bb0ea523da6d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/expiredChallenges.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NextGames.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NextGames.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Ranking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/PHPMailer" beforeDir="false" afterPath="$PROJECT_DIR$/php/PHPMailer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fire.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/fire.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,14 +14,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Ranking.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Ranking.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Ranking.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="139" column="1" selection-start-line="139" selection-start-column="1" selection-end-line="139" selection-end-column="1" />
+            <state relative-caret-position="241">
+              <caret line="146" column="37" selection-start-line="146" selection-start-column="37" selection-end-line="146" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fire.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/fire.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="2" selection-start-line="9" selection-end-line="17" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -113,15 +116,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="static.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="GamesPlayed.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/GamesPlayed.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -145,7 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>password</find>
       <find>zlatea</find>
       <find>42vh</find>
       <find>sendEmail</find>
@@ -175,6 +168,7 @@
       <find>update</find>
       <find>m</find>
       <find>console.log</find>
+      <find>3</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -207,7 +201,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/components/LoginPopUp.js" />
         <option value="$PROJECT_DIR$/src/components/GamesPlayed.js" />
-        <option value="$PROJECT_DIR$/src/fire.js" />
         <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/php/PHPMailer/composer.json" />
         <option value="$PROJECT_DIR$/php/sendGrid/.env.sample" />
@@ -222,6 +215,7 @@
         <option value="$PROJECT_DIR$/src/actions/index.js" />
         <option value="$PROJECT_DIR$/src/components/expiredChallenges.js" />
         <option value="$PROJECT_DIR$/src/components/Ranking.js" />
+        <option value="$PROJECT_DIR$/src/fire.js" />
       </list>
     </option>
   </component>
@@ -347,12 +341,12 @@
       <workItem from="1523720585957" duration="48612000" />
       <workItem from="1524167878919" duration="3095000" />
       <workItem from="1524334251050" duration="16086000" />
-      <workItem from="1525204218466" duration="7922000" />
+      <workItem from="1525204218466" duration="7999000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172668000" />
+    <option name="totallyTimeSpent" value="172745000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -532,13 +526,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build/package.json.js" />
-    <entry file="file://$PROJECT_DIR$/src/fire.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/php/PHPMailer/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -701,11 +688,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Ranking.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="139" column="1" selection-start-line="139" selection-start-column="1" selection-end-line="139" selection-end-column="1" />
+        <state relative-caret-position="241">
+          <caret line="146" column="37" selection-start-line="146" selection-start-column="37" selection-end-line="146" selection-end-column="37" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fire.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="2" selection-start-line="9" selection-end-line="17" selection-end-column="4" />
         </state>
       </provider>
     </entry>
