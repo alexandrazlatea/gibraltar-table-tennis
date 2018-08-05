@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {BrowserRouter, Route,  Switch} from 'react-router-dom';
 
 import ReactDOM from 'react-dom';
@@ -10,6 +11,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import rootReducer from './reducers';
+import Tournaments from "./components/Tournaments";
 
 const store = createStore(
     rootReducer,
@@ -21,6 +23,7 @@ ReactDOM.render(
         <BrowserRouter>
             <div className="">
                 <Switch>
+                    <Route path="/tournaments" component={Tournaments}/>
                     <Route path="" component={App}/>
                 </Switch>
             </div>

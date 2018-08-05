@@ -4,9 +4,7 @@ import './css/style.css';
 
 import Header from './components/header';
 import Footer from "./components/footer";
-
-
-
+import SectionHomepage from "./components/HomepageSection";
 
 class App extends Component {
     render() {
@@ -14,6 +12,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Header />
+                <SectionHomepage />
                 <Footer />
             </div>
         );

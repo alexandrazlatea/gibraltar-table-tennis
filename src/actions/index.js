@@ -126,6 +126,18 @@ export function fetchResults() {
     }
 }
 
+export function fetchTournaments() {
+    let messagesRef = fire.database().ref('tournaments');
+    return dispatch => {
+        messagesRef.on('value', snapshot => {
+            dispatch({
+                type: 'FETCH_TOURNAMENTS',
+                payload: snapshot.val()
+            })
+        })
+    }
+}
+
 export function renderView(value) {
     return {
         type: 'RENDER_VIEW',
