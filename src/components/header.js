@@ -2,6 +2,7 @@ import React from 'react';
 
 import {fire} from "../fire";
 import Ranking from '../components/Ranking';
+import RankingPoints from '../components/RankingPoints';
 import LoginPopUp from '../components/LoginPopUp';
 import NextGames from '../components/NextGames';
 import GamesPlayed from '../components/GamesPlayed';
@@ -95,10 +96,11 @@ class Header extends React.Component {
                     </div>}
                 </header>
 
+
                 <section className={sectionClassnames}>
                     <div className="row">
                         <div className="col-1-of-2">
-                            <h3 className="heading-tertiary u-margin-bottom-small"> Ranking </h3>
+                            <h3 className="heading-tertiary u-margin-bottom-small">Ranking  </h3>
                             <ul>
                                 <Ranking/>
                             </ul>
@@ -106,6 +108,25 @@ class Header extends React.Component {
                         <div className="col-1-of-2">
                             <h3 className="heading-tertiary u-margin-bottom-small"> Next Games </h3>
                             <NextGames/>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <section className={sectionClassnames}>
+                    <div className="row">
+                        <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Ranking Games Played </h3>
+                            <ul>
+                                <RankingPoints/>
+                            </ul>
+                        </div>
+                        <div className="col-1-of-2">
+                            <h3 className="heading-tertiary u-margin-bottom-small"> Played Games </h3>
+                            <GamesPlayed/>
                         </div>
 
 
@@ -130,10 +151,7 @@ class Header extends React.Component {
                                 wins, the two players shall swap ranks, and the ladder will be updated.<br></br>
                             </p>
                         </div>
-                        <div className="col-1-of-2">
-                            <h3 className="heading-tertiary u-margin-bottom-small"> Played Games </h3>
-                            <GamesPlayed/>
-                        </div>
+
 
 
                     </div>
