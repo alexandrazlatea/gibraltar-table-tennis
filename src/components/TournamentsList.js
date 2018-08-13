@@ -3,6 +3,7 @@ import {fetchTournaments}  from '../actions/index';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {fire} from "../fire";
+import TournamentPlayers from '../components/TournamentPlayers';
 
 class TournamentsList extends Component {
     constructor(props) {
@@ -82,6 +83,7 @@ class TournamentsList extends Component {
                 <h1>Tournaments</h1>
                 <ul>
                     {this.renderTournaments()}
+                    <TournamentPlayers />
                 </ul>
             </div>
         );
