@@ -398,3 +398,25 @@ span.psw {
   border-top: 1px solid #ece8e8;
   margin-bottom: 8px;
 }
+
+
+
+.tournaments-list ul {
+  font-size: 16px;
+  margin: 20px;
+  text-decoration: none;
+  list-style: none;
+  font-weight: bold;
+}
+
+.tournaments-list .tournament-name {
+  float:left;
+  min-width:30%;
+}
+.tournaments-list .tournament {
+  height: 30px;
+}
+.tournaments-list .tournament span {
+  float:left;
+}
+
