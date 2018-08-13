@@ -12,7 +12,6 @@ class TournamentsList extends Component {
             tournaments : "",
             currentUser: null,
             renderView: "",
-            currentUser: "",
             exist: false
         };
     }
@@ -33,28 +32,43 @@ class TournamentsList extends Component {
             }
         });
     }
-    componentWillReceiveProps(nextProps) {
-        this.setState({tournaments: nextProps.tournaments});
+
+    componentDidUpdate(prevProps) {
+        const {tournaments} = this.props;
+        const {tournaments: prevTournaments} = prevProps;
+
+        if (Object.keys(tournaments).length !== Object.keys(prevTournaments).length) {
+            this.setState({tournaments});
+        } else if (tournaments && prevTournaments) {
+            if (JSON.stringify(tournaments) !== JSON.stringify(prevTournaments)) {
+                this.setState({tournaments});
+            }
+        }
+
         if (!localStorage['userId'] && this.state.currentUser) {
             this.setState({
-                currentUser: null
+                currentUser: null,
+                exist: false,
             });
         }
     }
 
     checkUserAttendTournament = (tournamentId) => {
-        const value = localStorage['userId'];
-        let exist = false;
-        let query  = fire.database().ref('tournament_user').orderByChild("user_id").equalTo(value);
-            query.once("value").then(res => {
-                this.setState({exist: true});
-            });
+            const value = localStorage['userId'];
+            let query  = fire.database().ref('tournament_user').orderByChild("user_id").equalTo(value);
+                query.once("value").then(res => {
+                    if (!this.state.exist) {
+                        this.setState({exist: true});
+                    }
+                });
     }
 
     handleClickJoin = (tournamentId) => {
         fire.database().ref('tournament_user').push({
             tournament_id : tournamentId,
             user_id : localStorage['userId'],
+        }).then(res => {
+            this.checkUserAttendTournament(tournamentId);
         });
     }
 
@@ -63,7 +77,7 @@ class TournamentsList extends Component {
         return Object.values(tournaments).map((tournament, index) => {
             this.checkUserAttendTournament(tournament.tournament_id);
             return (
-                <li class="tournament">
+                <li key={index} className="tournament">
                     <div className="tournament-name">{tournament.name}</div>
                     <div className="startDate"><span>{tournament.start_date} - </span></div>
                     <div className="endDate"><span> {tournament.end_date}</span></div>

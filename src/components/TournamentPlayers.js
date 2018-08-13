@@ -11,14 +11,26 @@ class TournamentPlayers extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            players: '',
+            players: [],
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            players: nextProps.players ? Object.values(nextProps.players) : [],
-        });
+    componentDidUpdate(prevProps) {
+        const {players: prevPlayers} = prevProps;
+        const {players: players} = this.props;
+
+        if (players) {
+            if (prevPlayers.length !== players.length) {
+                this.setState({
+                    players: Object.values(players),
+                });
+            } else if (JSON.stringify(prevPlayers) !== JSON.stringify(players)) {
+                this.setState({
+                    players: Object.values(players),
+                });
+            }
+        }
+
     }
 
     componentDidMount() {
@@ -36,7 +48,7 @@ class TournamentPlayers extends Component {
     }
 
     renderPlayers = () => {
-
+        console.log(this.state.players);
     }
 
 
