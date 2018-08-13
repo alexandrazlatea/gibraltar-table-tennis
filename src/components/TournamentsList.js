@@ -63,14 +63,14 @@ class TournamentsList extends Component {
         return Object.values(tournaments).map((tournament, index) => {
             this.checkUserAttendTournament(tournament.tournament_id);
             return (
-                <div class="tournament">
-                    <li className="tournament-name">{tournament.name} </li>
+                <li class="tournament">
+                    <div className="tournament-name">{tournament.name}</div>
                     <div className="startDate"><span>{tournament.start_date} - </span></div>
                     <div className="endDate"><span> {tournament.end_date}</span></div>
-            { localStorage['userId'] && !this.state.exist && <button onClick={this.handleClickJoin(tournament.tournament_id)} >Join</button> }
-            { localStorage['userId'] && this.state.exist && <button>Registered</button> }
-            { !localStorage['userId'] && <button onClick={this.Login} >Login to join</button> }
-                </div>
+            { localStorage['userId'] && !this.state.exist && <button className="btn-join" onClick={this.handleClickJoin(tournament.tournament_id)} >Join</button> }
+            { localStorage['userId'] && this.state.exist && <button className="btn-join">Registered</button> }
+            { !localStorage['userId'] && <button className="btn-login" onClick={this.Login} >Login to join</button> }
+                 </li>
             )
         });
 

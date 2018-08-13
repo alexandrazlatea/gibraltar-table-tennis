@@ -399,7 +399,13 @@ span.psw {
   margin-bottom: 8px;
 }
 
+.tournaments-list {
+  min-height: 200px;
+}
 
+.tournaments-list h1 {
+  margin: 20px;
+}
 
 .tournaments-list ul {
   font-size: 16px;
@@ -410,13 +416,27 @@ span.psw {
 }
 
 .tournaments-list .tournament-name {
-  float:left;
+  float: left;
   min-width:30%;
+  display: inline-block;
 }
-.tournaments-list .tournament {
-  height: 30px;
-}
+
 .tournaments-list .tournament span {
-  float:left;
+  float: left;
+}
+
+.tournaments-list .tournament .startDate {
+  display: inline-block;
+}
+
+.tournaments-list .tournament .endDate {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.tournaments-list .tournament .btn-join, .tournaments-list .tournament .btn-login {
+  width: auto;
+  display: block;
+  border-radius: 2px;
 }
 
