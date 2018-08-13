@@ -43,15 +43,11 @@ class TournamentsList extends Component {
 
     checkUserAttendTournament = (tournamentId) => {
         const value = localStorage['userId'];
-        console.log(value, 'value');
         let exist = false;
         let query  = fire.database().ref('tournament_user').orderByChild("user_id").equalTo(value);
-        return dispatch => {
-            query.on("child_added", (snapshotUser) => {
-                console.log(snapshotUser, 'snapshotuser');
-                this.state.set({exist: true});
+            query.once("value").then(res => {
+                this.setState({exist: true});
             });
-        }
     }
 
     handleClickJoin = (tournamentId) => {
@@ -65,13 +61,13 @@ class TournamentsList extends Component {
         const {tournaments, currentUser} = this.state;
         return Object.values(tournaments).map((tournament, index) => {
             this.checkUserAttendTournament(tournament.tournament_id);
-            console.log(this.state.exist, 'exist');
             return (
                 <div class="tournament">
                     <li className="tournament-name">{tournament.name} </li>
                     <div className="startDate"><span>{tournament.start_date} - </span></div>
                     <div className="endDate"><span> {tournament.end_date}</span></div>
             { localStorage['userId'] && !this.state.exist && <button onClick={this.handleClickJoin(tournament.tournament_id)} >Join</button> }
+            { localStorage['userId'] && this.state.exist && <button>Registered</button> }
             { !localStorage['userId'] && <button onClick={this.Login} >Login to join</button> }
                 </div>
             )
