@@ -59,6 +59,18 @@ export function fetchPlayedGames() {
     }
 }
 
+export function fetchTournamentsPlayer() {
+    let messagesRef = fire.database().ref('games');
+    return dispatch => {
+        messagesRef.on('value', snapshot => {
+            dispatch({
+                type: 'FETCH_PLAYED_GAMES',
+                payload: snapshot.val()
+            })
+        })
+    }
+}
+
 export function updateChallenge(value, action, challenge = {}) {
     let query  = fire.database().ref('chalenge').orderByChild("user_id").equalTo(value);
     if (action == 'expired') {
