@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {fetchTournaments}  from '../actions/index';
+import {fetchTournaments, renderView}  from '../actions/index';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {fire} from "../fire";
@@ -33,6 +33,12 @@ class TournamentsList extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            renderView: nextProps.renderView
+        });
+    }
+
     componentDidUpdate(prevProps) {
         const {tournaments} = this.props;
         const {tournaments: prevTournaments} = prevProps;
@@ -55,12 +61,14 @@ class TournamentsList extends Component {
 
     checkUserAttendTournament = (tournamentId) => {
             const value = localStorage['userId'];
-            let query  = fire.database().ref('tournament_user').orderByChild("user_id").equalTo(value);
+            if (value) {
+                let query = fire.database().ref('tournament_user').orderByChild("user_id").equalTo(value);
                 query.once("value").then(res => {
-                    if (!this.state.exist) {
+                    if (!this.state.exist && res && res.val()) {
                         this.setState({exist: true});
                     }
                 });
+            }
     }
 
     handleClickJoin = (tournamentId) => {
@@ -68,7 +76,7 @@ class TournamentsList extends Component {
             tournament_id : tournamentId,
             user_id : localStorage['userId'],
         }).then(res => {
-            this.checkUserAttendTournament(tournamentId);
+            this.props.renderView(Math.floor(Math.random() * 90 + 10));
         });
     }
 
@@ -81,8 +89,7 @@ class TournamentsList extends Component {
                     <div className="tournament-name">{tournament.name}</div>
                     <div className="startDate"><span>{tournament.start_date} - </span></div>
                     <div className="endDate"><span> {tournament.end_date}</span></div>
-            { localStorage['userId'] && !this.state.exist && <button className="btn-join" onClick={this.handleClickJoin(tournament.tournament_id)} >Join</button> }
-            { localStorage['userId'] && this.state.exist && <button className="btn-join">Registered</button> }
+            { localStorage['userId'] && !this.state.exist && <button className="btn-join" onClick={() => this.handleClickJoin(tournament.tournament_id)} >Join</button> }
             { !localStorage['userId'] && <button className="btn-login" onClick={this.Login} >Login to join</button> }
                  </li>
             )
@@ -91,13 +98,13 @@ class TournamentsList extends Component {
     }
 
     render() {
-
+        const loggedInUserId = localStorage['userId'];
         return (
             <div className="tournaments-list">
                 <h1>Tournaments</h1>
                 <ul>
                     {this.renderTournaments()}
-                    <TournamentPlayers />
+                    <TournamentPlayers loggedInUserId={loggedInUserId}/>
                 </ul>
             </div>
         );
@@ -111,7 +118,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchtoProps(dispatch) {
-    return bindActionCreators({fetchTournaments}, dispatch);
+    return bindActionCreators({fetchTournaments, renderView}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(TournamentsList);

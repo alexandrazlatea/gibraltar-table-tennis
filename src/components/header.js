@@ -89,6 +89,7 @@ class Header extends React.Component {
                         <button onClick={() => this.onClickLogin('signup')}
                                 className="btn btn--white btn--animated">Sign up</button>}
                         {localStorage['userId'] && <h2 className="welcome-header">Welcome</h2>}
+                        <a href="/tournaments" className="tournament-link">Check out the tournaments</a>
 
                     </div>
                     {localStorage['userId'] && <div className="header__logout" onClick={this.onClickLogout}>

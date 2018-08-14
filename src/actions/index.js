@@ -63,19 +63,16 @@ export function fetchTournamentsPlayer() {
     let query  = fire.database().ref('tournament_user').orderByChild("tournament_id").equalTo(1);
     query.once("value").then(res => {
         let results = res.val();
-        let users = Object.values(results).map((result) => {
+        console.log(results);
+        let users = [];
+        Object.values(results).forEach((result) => {
+            console.log(result.user_id, 'user_id');
             let messagesRef = fire.database().ref('users').orderByChild("user_id").equalTo(result.user_id);
-            return dispatch => {
                 messagesRef.once('value').then(snapshot => {
-                    dispatch({
-                        type: 'FETCH_PLAYERS',
-                        payload: snapshot.val()
-                    })
-
+                    users.push(snapshot.val());
                 })
-            }
-
         })
+        console.log(users, 'users');
     });
 }
 

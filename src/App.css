@@ -434,9 +434,38 @@ span.psw {
   margin-left: 4px;
 }
 
-.tournaments-list .tournament .btn-join, .tournaments-list .tournament .btn-login {
+.tournaments-list .tournament .btn-login, .tournaments-list .tournament .btn-join {
   width: auto;
   display: block;
   border-radius: 2px;
 }
 
+.tournament-players li {
+  display: flex;
+  border-bottom: solid 1px #ece8e8;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.tournament-player-details {
+  flex: 1;
+}
+
+.tournament-player-details-joined {
+  color: #4CAF50;
+}
+
+.tournament-player-joined {
+  width: auto;
+  flex: 0;
+  border-radius: 2px;
+  color: #4CAF50;
+}
+.tournament-link {
+  font-size: 19px;
+  /* margin-top: 37px; */
+  color: white;
+  text-decoration: blink;
+  border: 1px solid grey;
+  padding: 10px;
+}
