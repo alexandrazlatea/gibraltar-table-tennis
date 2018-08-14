@@ -60,15 +60,23 @@ export function fetchPlayedGames() {
 }
 
 export function fetchTournamentsPlayer() {
-    let messagesRef = fire.database().ref('games');
-    return dispatch => {
-        messagesRef.on('value', snapshot => {
-            dispatch({
-                type: 'FETCH_PLAYED_GAMES',
-                payload: snapshot.val()
-            })
+    let query  = fire.database().ref('tournament_user').orderByChild("tournament_id").equalTo(1);
+    query.once("value").then(res => {
+        let results = res.val();
+        let users = Object.values(results).map((result) => {
+            let messagesRef = fire.database().ref('users').orderByChild("user_id").equalTo(result.user_id);
+            return dispatch => {
+                messagesRef.once('value').then(snapshot => {
+                    dispatch({
+                        type: 'FETCH_PLAYERS',
+                        payload: snapshot.val()
+                    })
+
+                })
+            }
+
         })
-    }
+    });
 }
 
 export function updateChallenge(value, action, challenge = {}) {
