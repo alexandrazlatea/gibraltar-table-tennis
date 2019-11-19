@@ -4,9 +4,7 @@ import {connect} from "react-redux";
 import {fetchUsersData}  from '../actions/index';
 import {fetchChalenges}  from '../actions/index';
 import _ from 'lodash';
-import ChallengeUser from './ChallengeUser';
 import * as classnames from 'classnames';
-import ExpiredChallenges from '../components/expiredChallenges';
 
 
 class Ranking extends Component {
@@ -44,7 +42,6 @@ class Ranking extends Component {
                 currentUser: null
             });
         }
-
         var sortedUsers = _.sortBy(nextProps.usersData, 'rank', function(n) {
             return Math.sin(n);
         });
@@ -87,45 +84,11 @@ class Ranking extends Component {
         });
     }
 
-    isUserChallenged = (user, challenges)=> {
-        if (challenges !== '') {
-            challenges = _.sortBy(challenges, 'user_id', function(n) {
-                return Math.sin(n);
-            });
-            const found = challenges.find((challenge) => {
-                return (challenge.challengedUser === user.user_id || challenge.user_id === user.user_id);
-            });
-            if (found) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     renderUsers = () => {
-        let { challenges } = this.props;
-        const {sortedUsers, currentPage, itemsPerPage, currentUser} = this.state;
+        const {sortedUsers, currentPage, itemsPerPage} = this.state;
 
-        let challengeMade = '';
-        let challengesReceived = '';
-        if (currentUser) {
-            if (challenges) {
-                challenges = Object.values(challenges).filter((challenge) => {
-                    return (challenge.active === 1);
-                });
-                challengesReceived = challenges.find((challenge) => {
-                    return challenge.challengedUser === localStorage['userId'];
-                })
-                if (currentUser) {
-                    challengeMade = challenges.find((challenge) => {
-                        return challenge.user_id === localStorage['userId'];
-                    })
-                }
-            }
-        }
-
-        // create your components
-        let userIsChallenged = false;
 
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -133,32 +96,11 @@ class Ranking extends Component {
 
         return currentSortedUsers.map((user, i) => {
             let challengeUser = false;
-            let buttonText = 'Challenge';
             let currentUserClass = '';
-            if (currentUser) {
-                if (Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank, 10)) <= 3 && Math.abs(parseInt(currentUser.rank, 10) - parseInt(user.rank,10)) > 0) {
-                    userIsChallenged = this.isUserChallenged(user, challenges);
-                    challengeUser = true;
-                }
-                if ( currentUser.user_id === user.user_id ) {
-                    currentUserClass = 'currentUser';
-                }
-            }
-            if (challengeMade || challengesReceived) {
-                if ((challengeMade && user.user_id === challengeMade.challengedUser) || ((challengesReceived && user.user_id === challengesReceived.user_id)  && userIsChallenged)) {
-                    buttonText = 'To be played';
-                    userIsChallenged = true;
-                } else if (userIsChallenged || challengeMade || challengesReceived) {
-                    buttonText = '';
-                }
-            } else if (userIsChallenged) {
-                buttonText = '';
-            }
             const userDataToShow = user.rank + '. ' + user.firstName + ' ' + user.lastName;
             return(
                 <li key={i} className={currentUserClass}>
                     <div className={challengeUser ? 'trim-name' : ''}>{userDataToShow}</div>
-                    {challengeUser && <ChallengeUser buttonText={buttonText} challengeMade = {challengeMade} challengesReceived = {challengesReceived}   user={user} currentUser={currentUser} /> } 
                 </li>
             );
         });
@@ -211,7 +153,6 @@ class Ranking extends Component {
                     {sortedUsers.length > itemsPerPage && <span onClick={this.onViewAllUsersClick}>View All</span>}
                     {itemsPerPage > initialItemsPerPage && <span onClick={this.onCollapseUsersClick}>Collapse</span>}
                 </div>
-                <ExpiredChallenges />
             </div>
         )
     }

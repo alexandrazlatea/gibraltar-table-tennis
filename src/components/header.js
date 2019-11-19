@@ -1,11 +1,7 @@
 import React from 'react';
 
 import {fire} from "../fire";
-import Ranking from '../components/Ranking';
-import RankingPoints from '../components/RankingPoints';
 import LoginPopUp from '../components/LoginPopUp';
-import NextGames from '../components/NextGames';
-import GamesPlayed from '../components/GamesPlayed';
 import * as classnames from 'classnames';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
@@ -65,10 +61,6 @@ class Header extends React.Component {
             "header": true,
             "header--disabled": this.state.showLoginPopUp
         });
-        const sectionClassnames = classnames({
-            "section-about": true,
-            "section-about--disabled": this.state.showLoginPopUp
-        });
         return (
             <div className="header-component">
                 {this.state.showLoginPopUp &&
@@ -78,8 +70,8 @@ class Header extends React.Component {
                     </div>
                     <div className="header__text-box">
                         <h1 className="heading-primary">
-                            <span className="heading-primary--main">Office</span>
-                            <span className="heading-primary--sub">table tennis</span>
+                            <span className="heading-primary--main">Gibraltar</span>
+                            <span className="heading-primary--sub">table tennis league</span>
                         </h1>
 
                         {!this.state.showLoginPopUp && !localStorage['userId'] &&
@@ -87,14 +79,13 @@ class Header extends React.Component {
                                 className="btn btn--white btn--animated">Login</button>}
                         {!this.state.showLoginPopUp && !localStorage['userId'] &&
                         <button onClick={() => this.onClickLogin('signup')}
-                                className="btn btn--white btn--animated">Sign up</button>}
+                                className="btn btn--white btn--animated">Register league 2019</button>}
                         {localStorage['userId'] && <h2 className="welcome-header">Welcome</h2>}
-                        <a href="/tournaments" className="tournament-link">Check out the tournaments</a>
-
                     </div>
                     {localStorage['userId'] && <div className="header__logout" onClick={this.onClickLogout}>
                         <span>Log Out</span>
                     </div>}
+
                 </header>
 
             </div>

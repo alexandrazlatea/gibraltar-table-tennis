@@ -63,22 +63,19 @@ export function fetchTournamentsPlayer() {
     let query  = fire.database().ref('tournament_user').orderByChild("tournament_id").equalTo(1);
     query.once("value").then(res => {
         let results = res.val();
-        console.log(results);
         let users = [];
         Object.values(results).forEach((result) => {
-            console.log(result.user_id, 'user_id');
             let messagesRef = fire.database().ref('users').orderByChild("user_id").equalTo(result.user_id);
                 messagesRef.once('value').then(snapshot => {
                     users.push(snapshot.val());
                 })
         })
-        console.log(users, 'users');
     });
 }
 
 export function updateChallenge(value, action, challenge = {}) {
     let query  = fire.database().ref('chalenge').orderByChild("user_id").equalTo(value);
-    if (action == 'expired') {
+    if (action === 'expired') {
         fire.database().ref('games').push({
             user_id: challenge.user_id,
             challengedUser: challenge.challengedUser,

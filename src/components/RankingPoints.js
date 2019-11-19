@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {fetchChalenges, fetchUsersData} from "../actions";
-import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
 class RankingPoints extends Component {

@@ -1,11 +1,19 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app';
+import 'firebase/auth';        // for authentication
+import 'firebase/storage';     // for storage
+import 'firebase/database';    // for realtime database
+import 'firebase/firestore';   // for cloud firestore
+import 'firebase/messaging';   // for cloud messaging
+import 'firebase/functions';   // for cloud functions
 var config = {
-    apiKey: "AIzaSyDc4bVzpTl1vi78Fn_jvLlw6AXNVVtJwSs",
-    authDomain: "tabletennis-ee399.firebaseapp.com",
-    databaseURL: "https://tabletennis-ee399.firebaseio.com",
-    projectId: "tabletennis-ee399",
-    storageBucket: "",
-    messagingSenderId: "308584425018"
+        apiKey: "AIzaSyDHk0KVxP14Mo9JMSI2JXExbfSJgJ5fORM",
+        authDomain: "gibraltar-table-tennis.firebaseapp.com",
+        databaseURL: "https://gibraltar-table-tennis.firebaseio.com",
+        projectId: "gibraltar-table-tennis",
+        storageBucket: "gibraltar-table-tennis.appspot.com",
+        messagingSenderId: "986451977816",
+        appId: "1:986451977816:web:459bba89ed2a3832024c2d",
+        measurementId: "G-5SZ43WGYZ1"
 };
 
 /*var config = {
