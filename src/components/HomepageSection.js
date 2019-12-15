@@ -48,7 +48,7 @@ class HomepageSection extends React.Component {
         return (
             <section className="team-container">
                 <div className="row">
-                    <div className="welcome-text">Welcome to the Gibraltar Table Tennis League 2019. Please register in order to be able to participate. Once we have all the players we'll set up the teams.</div>
+                    <div className="welcome-text">Welcome to the Gibraltar Table Tennis League 2020.</div>
 
                     <div>
 
