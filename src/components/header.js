@@ -77,9 +77,9 @@ class Header extends React.Component {
                         {!this.state.showLoginPopUp && !localStorage['userId'] &&
                         <button onClick={() => this.onClickLogin('login')}
                                 className="btn btn--white btn--animated">Login</button>}
-                        {!this.state.showLoginPopUp && !localStorage['userId'] &&
-                        <button onClick={() => this.onClickLogin('signup')}
-                                className="btn btn--white btn--animated">Register league 2019</button>}
+                        {/*{!this.state.showLoginPopUp && !localStorage['userId'] &&*/}
+                        {/*<button onClick={() => this.onClickLogin('signup')}*/}
+                                {/*className="btn btn--white btn--animated">Register league 2019</button>}*/}
                         {localStorage['userId'] && <h2 className="welcome-header">Welcome</h2>}
                     </div>
                     {localStorage['userId'] && <div className="header__logout" onClick={this.onClickLogout}>

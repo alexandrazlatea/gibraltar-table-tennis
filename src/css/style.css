@@ -1716,6 +1716,54 @@ ul.poll-results-list li {
 {
   display:none;
 }
+.tabs {
+  display: flex;
+}
+.tabs  button {
+    background-color: #a4a9a4;
+    color: white;
+    padding: 9px 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    padding: 9px 15px;
+    margin: 8px 0;
+    border: 1px solid grey;
+    margin: 1px;
+}
+.team-container  span {
+  font-size: 15px;
+  color: black;
+}
+.team-container ul li:first-child {
+   font-size: 20px;
+   color: black;
+   font-weight: 600;
+   border-bottom: 1px solid #88888852;
+ }
+
+.team-container ul li {
+  border: none;
+}
+.team-container ul {
+  background-color: #eceff1;
+  border: 1px solid #e8e7e7;
+  padding: 4px 8px;
+  color: #000000;
+  border-radius: 4px;
+  margin: 8px 0;
+  box-shadow: 1px 2px #88888852;
+}
+
+
+.team-container .tabs {
+  min-height: 40px;
+}
+.team-container .tabs .active {
+  background-color: white;
+  color: gray;
+}
+
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {

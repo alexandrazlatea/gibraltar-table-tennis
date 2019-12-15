@@ -7,6 +7,7 @@ import _ from 'lodash';
 import * as classnames from 'classnames';
 
 
+
 class Ranking extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,9 @@ class Ranking extends Component {
             itemsPerPage: 20,
             initialItemsPerPage: 20,
             sortedUsers: [],
-            currentUser: null
+            usersData: [],
+            currentUser: null,
+            type: ''
         };
     }
 
@@ -35,14 +38,15 @@ class Ranking extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({challenges: nextProps.challenges, renderView: nextProps.renderView});
+        this.setState({challenges: nextProps.challenges, renderView: nextProps.renderView, usersData: Object.values(nextProps.usersData)});
 
         if (!localStorage['userId'] && this.state.currentUser) {
             this.setState({
                 currentUser: null
             });
         }
-        var sortedUsers = _.sortBy(nextProps.usersData, 'rank', function(n) {
+        console.log(nextProps.usersData);
+        var sortedUsers = _.sortBy(nextProps.usersData, 'seed', function(n) {
             return Math.sin(n);
         });
         if (sortedUsers && sortedUsers.length > 0) {
@@ -78,28 +82,15 @@ class Ranking extends Component {
         }
     }
 
-    onPageChange = (event) => {
-        this.setState({
-            currentPage: Number(event.target.id)
-        });
-    }
-
-
-
     renderUsers = () => {
-        const {sortedUsers, currentPage, itemsPerPage} = this.state;
+        const {usersData} = this.state;
 
 
-        const indexOfLastItem = currentPage * itemsPerPage;
-        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentSortedUsers = sortedUsers.slice(indexOfFirstItem, indexOfLastItem);
-
-        return currentSortedUsers.map((user, i) => {
+        return usersData.map((user, i) => {
             let challengeUser = false;
-            let currentUserClass = '';
             const userDataToShow = user.rank + '. ' + user.firstName + ' ' + user.lastName;
             return(
-                <li key={i} className={currentUserClass}>
+                <li key={i}>
                     <div className={challengeUser ? 'trim-name' : ''}>{userDataToShow}</div>
                 </li>
             );
@@ -107,52 +98,45 @@ class Ranking extends Component {
 
     }
 
-    onViewAllUsersClick = () => {
-        this.setState({
-            itemsPerPage: this.state.sortedUsers.length,
-            currentPage: 1
+    renderPlayers = (team) => {
+        return team.map((player, i) => {
+            return (
+                <li>
+                    {player.firstName + " " + player.lastName}
+                </li>
+            );
+
         });
     }
 
-    onCollapseUsersClick = () => {
-        this.setState({
-            itemsPerPage: this.state.initialItemsPerPage,
-            currentPage: 1
-        });
+    renderTeams = () => {
+        const {sortedUsers} = this.state;
+        var groups = _.groupBy(sortedUsers,  'team');
+
+        var arr_groups = Object.entries(groups)
+        if (arr_groups.length > 0) {
+            return arr_groups.map((team, i) => {
+                    return (
+                        <ul>
+                            <li>Team {team[0]}</li>
+                            {this.renderPlayers(team[1])}
+                        </ul>
+                    );
+
+                });
+        }
+
     }
 
     render() {
-        // Logic for displaying page numbers
-        const {itemsPerPage, sortedUsers, currentPage, initialItemsPerPage} = this.state; 
-
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(sortedUsers.length / itemsPerPage); i++) {
-            pageNumbers.push(i);
-        }
-
-        const renderPageNumbers = pageNumbers.map(number => {
-            const pageNumberClassnames = classnames({
-                'page-number-selected': number === currentPage
-            });
-            return (
-                <li key={number} id={number} className={pageNumberClassnames} onClick={this.onPageChange} >
-                    {number}
-                </li>
-                );
-        });
-
         return (
             <div>
-                <div className="ranking">
+                {this.props.type === 'teams' && <div className="ranking">
+                    {this.renderTeams()}
+                </div> }
+                {this.props.type === 'participants' && <div className="ranking">
                     {this.renderUsers()}
-                </div>
-                {itemsPerPage === initialItemsPerPage && sortedUsers.length > itemsPerPage && <ul className="page-numbers">
-                    {renderPageNumbers}
-                </ul>}
-                <div className='page-numbers-view-all'>
-                    {sortedUsers.length > itemsPerPage && <span onClick={this.onViewAllUsersClick}>View All</span>}
-                    {itemsPerPage > initialItemsPerPage && <span onClick={this.onCollapseUsersClick}>Collapse</span>}
-                </div>
+                </div> }
             </div>
         )
     }

@@ -2,7 +2,7 @@ import {fire} from '../fire';
 import axios from 'axios';
 
 export function fetchUsersData() {
-    let messagesRef = fire.database().ref('users');
+    let messagesRef = fire.database().ref('users').orderByChild('seed');
     return dispatch => {
         messagesRef.on('value', snapshot => {
             dispatch({
@@ -12,7 +12,18 @@ export function fetchUsersData() {
         })
     }
 }
-
+export function fetchTeams() {
+    let messagesRef = fire.database().ref('teams');
+    let users = fire.database().ref('users').orderByChild('seed');
+    return dispatch => {
+        messagesRef.on('value', snapshot => {
+            dispatch({
+                type: 'FETCH_TEAMS',
+                payload: snapshot.val()
+            })
+        })
+    }
+}
 export function sendEmail(data) {
     return dispatch => {
         axios({
