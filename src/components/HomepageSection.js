@@ -2,7 +2,6 @@ import React from 'react';
 
 import {fire} from "../fire";
 import Ranking from '../components/Ranking';
-import * as classnames from 'classnames';
 import {bindActionCreators} from "redux";
 import {renderView} from "../actions/index";
 import {connect} from "react-redux";
@@ -46,10 +45,6 @@ class HomepageSection extends React.Component {
     }
 
     render() {
-        const sectionClassnames = classnames({
-            "section-about": true,
-            "section-about--disabled": this.state.showLoginPopUp
-        });
         return (
             <section className="team-container">
                 <div className="row">
@@ -62,9 +57,9 @@ class HomepageSection extends React.Component {
                            <div className={this.isActive('participants')} onClick={this.setFilter.bind(this, 'participants')}>Participants</div>
                            <div className={this.isActive('schedule')} onClick={this.setFilter.bind(this, 'schedule')}>Schedule</div>
                        </div>
-                       {this.state.selected == 'teams' && <Ranking type="teams"/> }
-                       {this.state.selected == 'participants' && <Ranking type="participants"/> }
-                       {this.state.selected == 'schedule' && <span>Coming soon</span>}
+                       {this.state.selected === 'teams' && <Ranking type="teams"/> }
+                       {this.state.selected === 'participants' && <Ranking type="participants"/> }
+                       {this.state.selected === 'schedule' && <span>Coming soon</span>}
                     </div>
                 </div>
             </section>

@@ -4,9 +4,6 @@ import {connect} from "react-redux";
 import {fetchUsersData}  from '../actions/index';
 import {fetchChalenges}  from '../actions/index';
 import _ from 'lodash';
-import * as classnames from 'classnames';
-
-
 
 class Ranking extends Component {
     constructor(props) {
@@ -45,7 +42,6 @@ class Ranking extends Component {
                 currentUser: null
             });
         }
-        console.log(nextProps.usersData);
         var sortedUsers = _.sortBy(nextProps.usersData, 'seed', function(n) {
             return Math.sin(n);
         });
@@ -101,7 +97,7 @@ class Ranking extends Component {
     renderPlayers = (team) => {
         return team.map((player, i) => {
             return (
-                <li>
+                <li key={i}>
                     {player.firstName + " " + player.lastName}
                 </li>
             );
@@ -117,7 +113,7 @@ class Ranking extends Component {
         if (arr_groups.length > 0) {
             return arr_groups.map((team, i) => {
                     return (
-                        <ul>
+                        <ul key={i}>
                             <li>Team {team[0]}</li>
                             {this.renderPlayers(team[1])}
                         </ul>
