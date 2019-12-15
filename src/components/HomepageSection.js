@@ -55,12 +55,12 @@ class HomepageSection extends React.Component {
                 <div className="row">
                     <div className="welcome-text">Welcome to the Gibraltar Table Tennis League 2019. Please register in order to be able to participate. Once we have all the players we'll set up the teams.</div>
 
-                    <div className="col-1-of-2">
+                    <div>
 
                        <div className="tabs">
-                           <button type="button" className={this.isActive('teams')}  onClick={this.setFilter.bind(this, 'teams')}>Teams</button>
-                           <button type="button " className={this.isActive('participants')}  onClick={this.setFilter.bind(this, 'participants')}>Participants</button>
-                           <button type="button" className={this.isActive('schedule')}   onClick={this.setFilter.bind(this, 'schedule')}>Schedule</button>
+                           <div className={this.isActive('teams')} onClick={this.setFilter.bind(this, 'teams')}>Teams</div>
+                           <div className={this.isActive('participants')} onClick={this.setFilter.bind(this, 'participants')}>Participants</div>
+                           <div className={this.isActive('schedule')} onClick={this.setFilter.bind(this, 'schedule')}>Schedule</div>
                        </div>
                        {this.state.selected == 'teams' && <Ranking type="teams"/> }
                        {this.state.selected == 'participants' && <Ranking type="participants"/> }

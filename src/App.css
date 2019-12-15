@@ -23,8 +23,12 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .row li {
@@ -35,20 +39,24 @@
 }
 
 .row .currentUser {
-  color: #4CAF50;
+  color: #4caf50;
 }
 
 .login-form {
-    width: 500px;
-    max-width: 80%;
-    position: fixed;
-    background-color: white;
-    top: 50%;
-    z-index: 1000;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 2px;
-    font-size: 16px;
+  width: 500px;
+  max-width: 80%;
+  position: fixed;
+  background-color: white;
+  top: 50%;
+  z-index: 1000;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 2px;
+  font-size: 16px;
+}
+
+.team-container > .row {
+  max-width: initial;
 }
 
 .login-form-title {
@@ -57,7 +65,8 @@
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -68,7 +77,7 @@ input[type=text], input[type=password] {
 
 /* Set a style for all buttons */
 button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 9px 0;
   margin: 0;
@@ -123,7 +132,7 @@ span.psw {
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .popup_inner {
   position: absolute;
@@ -198,19 +207,22 @@ span.psw {
 
 .ranking {
   text-transform: capitalize;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 .ranking li {
-  margin: 4px 0;
+  padding: 4px;
   border-radius: 2px;
-  min-width: 300px;
-  max-width: 600px;
+  width: 300px;
   min-height: 36px;
   position: relative;
 }
 
 .ranking li button {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 0;
   margin: 0;
@@ -258,7 +270,7 @@ span.psw {
 
 .page-numbers > li {
   margin-right: 12px;
-  color: #4CAF50;
+  color: #4caf50;
   user-select: none;
   cursor: pointer;
   border: none;
@@ -277,7 +289,7 @@ span.psw {
 
 .page-numbers-view-all {
   margin-right: 12px;
-  color: #4CAF50;
+  color: #4caf50;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -292,7 +304,8 @@ span.psw {
   color: #2c632e;
 }
 
-.game, .next-game {
+.game,
+.next-game {
   border: 1px solid #ece8e8;
   border-radius: 2px;
   margin: 8px;
@@ -322,7 +335,8 @@ span.psw {
   padding: 2px 8px;
 }
 
-.first-user-results, .first-user {
+.first-user-results,
+.first-user {
   margin: 8px;
   border-bottom: 1px solid #ece8e8;
   margin-bottom: 4px;
@@ -333,7 +347,8 @@ span.psw {
   padding-bottom: 4px;
 }
 
-.second-user-results, .second-user {
+.second-user-results,
+.second-user {
   margin: 8px;
   margin-top: 4px;
   display: flex;
@@ -345,7 +360,7 @@ span.psw {
 }
 
 .competitor-results-won {
-  color: #4CAF50;
+  color: #4caf50;
   font-weight: bold;
 }
 
@@ -363,7 +378,7 @@ span.psw {
 }
 
 .welcome-header {
-  color:#fff;
+  color: #fff;
   padding-top: 16px;
   font-size: 18px;
 }
@@ -435,10 +450,9 @@ span.psw {
   }
 }
 .header__logout:hover {
-  color: #aaa
+  color: #aaa;
 }
 
 .header {
   position: relative;
 }
-

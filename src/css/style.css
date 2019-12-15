@@ -1719,18 +1719,18 @@ ul.poll-results-list li {
 .tabs {
   display: flex;
 }
-.tabs  button {
+.tabs div, .tabs div:active {
     background-color: #a4a9a4;
     color: white;
-    padding: 9px 0;
-    margin: 0;
     border: none;
     cursor: pointer;
-    padding: 9px 15px;
-    margin: 8px 0;
     border: 1px solid grey;
-    margin: 1px;
+    width: auto;
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 4px;
 }
+
 .team-container  span {
   font-size: 15px;
   color: black;
@@ -1751,13 +1751,20 @@ ul.poll-results-list li {
   padding: 4px 8px;
   color: #000000;
   border-radius: 4px;
-  margin: 8px 0;
+  margin-bottom: 8px;
+  margin-right: 8px;
   box-shadow: 1px 2px #88888852;
+  max-width: 100%;
 }
 
 
 .team-container .tabs {
   min-height: 40px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 4px;
+  margin-right: 8px;
+  border-radius: 4px;
 }
 .team-container .tabs .active {
   background-color: white;

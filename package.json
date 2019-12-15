@@ -2,9 +2,6 @@
   "name": "table-tennis",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "10.13.0"
-  },
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
