@@ -53,6 +53,15 @@ class Results extends Component {
                     <div className="content results-popup-content">
                         <ul className="results-list">
                             {this.renderResults()}
+                            <li className="results-popup-result">
+                                <div className="results-popup-result-column to-left">Double</div>
+                                <div className="results-popup-result-column middle">
+                                    <input disabled type="number"/>
+                                    <span> : </span>
+                                    <input disabled type="number"/>
+                                </div>
+                                <div className="results-popup-result-column to-right">Double</div>
+                            </li>
                         </ul>
                     </div>
                 </div>
