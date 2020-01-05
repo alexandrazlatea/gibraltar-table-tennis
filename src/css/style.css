@@ -1926,7 +1926,7 @@ ul.poll-results-list li {
 }
 
 .results-popup-result-column {
-  width: 40%;
+  width: 35%;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
