@@ -1,7 +1,11 @@
 import {fire} from '../fire';
 import axios from 'axios';
+import ConstantsList from '../constants';
 
+export const API_URL = "https://api-gibraltar-league.herokuapp.com";
 export function fetchUsersData() {
+
+
     let messagesRef = fire.database().ref('users').orderByChild('seed');
     return dispatch => {
         messagesRef.on('value', snapshot => {
@@ -27,6 +31,37 @@ export function sendEmail(data) {
         }).then(response => {
             dispatch({
                 type: 'test',
+                payload: response.data
+            });
+        })
+    }
+
+}
+
+export function fetchSchedule(data) {
+    return dispatch => {
+        axios({
+            method: 'get',
+            url: ConstantsList.API_URL+'/schedule/getSchedule.php',
+            data
+        }).then(response => {
+            dispatch({
+                type: 'FETCH_SCHEDULE',
+                payload: response.data
+            });
+        })
+    }
+
+}
+
+export function fetchResults(teamA, teamB, round) {
+    return dispatch => {
+        axios({
+            method: 'get',
+            url: ConstantsList.API_URL+'/schedule/results.php?teamA='+teamA+'&teamB='+teamB+'&round='+round,
+        }).then(response => {
+            dispatch({
+                type: 'FETCH_RESULTS',
                 payload: response.data
             });
         })
@@ -96,59 +131,6 @@ export function updateChallenge(value, action, challenge = {}) {
                 payload: (Math.floor(Math.random() * 90 + 10))
             })
         });
-    }
-}
-
-export function SwapRanks(user_id, challengedUser, firstScor, secondScore) {
-
-    let query  = fire.database().ref('users').orderByChild("user_id").equalTo(user_id);
-    return dispatch => {
-        query.on("child_added", (snapshotUser) => {
-            let userRank = snapshotUser.val().rank;
-            let queryChallenged = fire.database().ref('users').orderByChild("user_id").equalTo(challengedUser);
-            queryChallenged.on("child_added", (snapshotChallenged) => {
-                let userChallengedRank = snapshotChallenged.val().rank;
-                if (((userRank < userChallengedRank) && (firstScor > secondScore)) || ((userRank > userChallengedRank) && (firstScor < secondScore))) {
-                    query.on("child_added", (snapshotUser) => {
-                        snapshotUser.ref.update({rank: userChallengedRank})
-                    });
-                    queryChallenged.on("child_added", (snapshotChallenged) => {
-                        snapshotChallenged.ref.update({rank: userRank})
-                    });
-                }
-                dispatch({
-                    type: 'RENDER_VIEW',
-                    payload: (Math.floor(Math.random() * 90 + 10))
-                })
-            });
-
-        });
-    }
-
-}
-
-
-export function fetchResults() {
-    let messagesRef = fire.database().ref('vote');
-    return dispatch => {
-        messagesRef.on('value', snapshot => {
-            dispatch({
-                type: 'FETCH_RESULTS',
-                payload: snapshot.val()
-            })
-        })
-    }
-}
-
-export function fetchTournaments() {
-    let messagesRef = fire.database().ref('tournaments');
-    return dispatch => {
-        messagesRef.on('value', snapshot => {
-            dispatch({
-                type: 'FETCH_TOURNAMENTS',
-                payload: snapshot.val()
-            })
-        })
     }
 }
 
