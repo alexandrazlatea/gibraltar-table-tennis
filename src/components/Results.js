@@ -30,9 +30,9 @@ class Results extends Component {
                     <li key={i} className="results-popup-result">
                         <div className="results-popup-result-column to-left">{team.Player1FirstName} {team.Player1LastName}</div>
                         <div className="results-popup-result-column middle">
-                            <input disabled type="number"/>
+                            <input disabled type="number" value={team.scor1}/>
                             <span> : </span>
-                            <input disabled type="number"/>
+                            <input disabled type="number" value={team.scor2} />
                         </div>
                         <div className="results-popup-result-column to-right">{team.Player2FirstName} {team.Player2LastName}</div>
                     </li>
@@ -53,15 +53,7 @@ class Results extends Component {
                     <div className="content results-popup-content">
                         <ul className="results-list">
                             {this.renderResults()}
-                            <li className="results-popup-result">
-                                <div className="results-popup-result-column to-left">Double</div>
-                                <div className="results-popup-result-column middle">
-                                    <input disabled type="number"/>
-                                    <span> : </span>
-                                    <input disabled type="number"/>
-                                </div>
-                                <div className="results-popup-result-column to-right">Double</div>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>

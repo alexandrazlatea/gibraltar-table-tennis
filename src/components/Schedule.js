@@ -43,12 +43,9 @@ class Schedule extends Component {
         return team.map((player, i) => {
             return (
                 <li className="main-team-list-item" key={i} onClick={this.handleCheck.bind(this)} data-teama={player.teamA_id} data-teamb={player.teamB_id} data-round={player.round}>
-                    {player.teamA + " - " + player.teamB}
+                    {player.teamA } <div><span class="team-score"> {player.scoreA} </span> - <span class="team-score"> {player.scoreB}  </span></div>  {player.teamB}
                     <button className="main-team-list-item-button" onClick={this.handleCheck.bind(this)} data-teama={player.teamA_id} data-teamb={player.teamB_id} data-round={player.round}>Results</button>
                 </li>
-
-
-
         );
 
         });
