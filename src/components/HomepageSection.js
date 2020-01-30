@@ -3,6 +3,7 @@ import React from 'react';
 import {fire} from "../fire";
 import Ranking from '../components/Ranking';
 import Schedule from '../components/Schedule';
+import Leaderboard from '../components/Leaderboard';
 import {bindActionCreators} from "redux";
 import {renderView} from "../actions/index";
 import {connect} from "react-redux";
@@ -56,11 +57,13 @@ class HomepageSection extends React.Component {
                        <div className="tabs">
                            <div className={this.isActive('schedule')} onClick={this.setFilter.bind(this, 'schedule')}>Schedule</div>
                            <div className={this.isActive('teams')} onClick={this.setFilter.bind(this, 'teams')}>Teams</div>
-                           <div className={this.isActive('participants')} onClick={this.setFilter.bind(this, 'participants')}>Participants</div>
+                           {/*<div className={this.isActive('participants')} onClick={this.setFilter.bind(this, 'participants')}>Participants</div>*/}
+                           <div className={this.isActive('leaderboard')} onClick={this.setFilter.bind(this, 'leaderboard')}>Ranking</div>
                        </div>
                         {this.state.selected === 'schedule' && <Schedule/> }
                         {this.state.selected === 'teams' && <Ranking type="teams"/> }
-                       {this.state.selected === 'participants' && <Ranking type="participants"/> }
+                       {/*{this.state.selected === 'participants' && <Ranking type="participants"/> }*/}
+                       {this.state.selected === 'leaderboard' && <Leaderboard type="participants"/> }
                     </div>
                 </div>
             </section>
