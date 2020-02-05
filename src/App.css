@@ -36,10 +36,15 @@
   list-style: none;
   border: 1px solid #ece8e8;
   min-height: 54px;
+  line-height: 54px;
 }
 
 .row .currentUser {
   color: #4caf50;
+}
+.leaderboard span {
+  float: right;
+  padding: 0 20px;
 }
 
 .login-form {

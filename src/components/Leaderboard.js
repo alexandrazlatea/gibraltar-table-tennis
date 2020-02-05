@@ -27,11 +27,11 @@ class Leaderboard extends React.Component {
             <div class="leaderboard">
                <ul>
                    <li>1. Fresh 4U <span>13</span></li>
-                   <li>2. Aquarius <span>10</span></li>
-                   <li>3. Seawave <span>9</span></li>
-                   <li>4. D&H Ceramics <span>7</span></li>
-                   <li>5. 101 <span>6</span></li>
-                   <li>6. HSE Consulting <span>5</span></li>
+                   <li>2. 101 <span>12</span></li>
+                   <li>3. Aquarius <span>10</span></li>
+                   <li>4. HSE Consulting <span>9</span></li>
+                   <li>5. Seawave <span>9</span></li>
+                   <li>6. D&H Ceramics <span>7</span></li>
                </ul>
             </div>
         )
