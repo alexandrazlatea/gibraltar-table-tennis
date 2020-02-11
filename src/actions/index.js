@@ -39,10 +39,11 @@ export function sendEmail(data) {
 }
 
 export function fetchSchedule(data) {
+    let league_type = (localStorage['league_type']) ? localStorage['league_type'] : 1;
     return dispatch => {
         axios({
             method: 'get',
-            url: ConstantsList.API_URL+'/schedule/getSchedule.php',
+            url: ConstantsList.API_URL+'/schedule/getSchedule.php?league_type='+league_type,
             data
         }).then(response => {
             dispatch({
@@ -54,11 +55,29 @@ export function fetchSchedule(data) {
 
 }
 
-export function fetchResults(teamA, teamB, round) {
+export function fetchLeaderboard(data) {
+    let league_type = (localStorage['league_type']) ? localStorage['league_type'] : 1;
     return dispatch => {
         axios({
             method: 'get',
-            url: ConstantsList.API_URL+'/schedule/results.php?teamA='+teamA+'&teamB='+teamB+'&round='+round,
+            url: ConstantsList.API_URL+'/schedule/leaderboard.php?league_type='+league_type,
+            data
+        }).then(response => {
+            dispatch({
+                type: 'FETCH_LEADERBOARD',
+                payload: response.data
+            });
+        })
+    }
+
+}
+
+export function fetchResults(teamA, teamB, round) {
+    let league_type = (localStorage['league_type']) ? localStorage['league_type'] : 1;
+    return dispatch => {
+        axios({
+            method: 'get',
+            url: ConstantsList.API_URL+'/schedule/results.php?teamA='+teamA+'&teamB='+teamB+'&round='+round+'&league_type=' + league_type,
         }).then(response => {
             dispatch({
                 type: 'FETCH_RESULTS',

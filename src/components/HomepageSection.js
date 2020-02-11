@@ -18,8 +18,12 @@ class HomepageSection extends React.Component {
             challenges: '',
             type: '',
             renderHeader: '',
-            selected: 'schedule'
-        };
+            renderView: '',
+            selected: 'schedule',
+            leagueType:  (localStorage['league_type']) ? localStorage['league_type'] : 1
+
+
+    };
     }
 
     componentDidMount() {
@@ -27,6 +31,12 @@ class HomepageSection extends React.Component {
         if (localStorage['userId']) {
             this.checkLoginState();
         }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            renderView: nextProps.renderView,
+            leagueType:  (localStorage['league_type']) ? localStorage['league_type'] : 1
+        });
     }
 
     checkLoginState = () => {
@@ -56,12 +66,12 @@ class HomepageSection extends React.Component {
 
                        <div className="tabs">
                            <div className={this.isActive('schedule')} onClick={this.setFilter.bind(this, 'schedule')}>Schedule</div>
-                           <div className={this.isActive('teams')} onClick={this.setFilter.bind(this, 'teams')}>Teams</div>
+                           {this.state.leagueType ==1 && <div className={this.isActive('teams')} onClick={this.setFilter.bind(this, 'teams')}>Teams</div>}
                            {/*<div className={this.isActive('participants')} onClick={this.setFilter.bind(this, 'participants')}>Participants</div>*/}
                            <div className={this.isActive('leaderboard')} onClick={this.setFilter.bind(this, 'leaderboard')}>Ranking</div>
                        </div>
                         {this.state.selected === 'schedule' && <Schedule/> }
-                        {this.state.selected === 'teams' && <Ranking type="teams"/> }
+                        {this.state.selected === 'teams' && localStorage['league_type'] == 1 && <Ranking type="teams"/> }
                        {/*{this.state.selected === 'participants' && <Ranking type="participants"/> }*/}
                        {this.state.selected === 'leaderboard' && <Leaderboard type="participants"/> }
                     </div>
@@ -72,9 +82,14 @@ class HomepageSection extends React.Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        renderView: state.renderView,
+    }
+}
 
 function mapDispatchtoProps(dispatch) {
     return bindActionCreators({renderView}, dispatch);
 }
 
-export default connect(null, mapDispatchtoProps)(HomepageSection);
+export default connect(mapStateToProps, mapDispatchtoProps)(HomepageSection);

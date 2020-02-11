@@ -1708,6 +1708,18 @@ ul.poll-results-list li {
   width:100%;
   margin:0 auto;
 }
+.header_league_type button {
+  background-color: #464946;
+  color: white;
+  padding: 9px 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  padding: 9px 15px;
+  margin: 8px 0;
+  width: 73%;
+}
+
 
 .ppConsistencies
 {
@@ -1806,6 +1818,36 @@ ul.poll-results-list li {
 .overlay:target {
   visibility: visible;
   opacity: 1;
+}
+.leaderboard {
+  margin-bottom: 12px
+}
+.leaderboard li {
+  float: left;
+  padding: 0 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: initial;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-ul li span {
+  font-size: 18px;
+  color: #777;
+}
+
+.leaderboard-ul-header li {
+  padding: 0 4px;
+}
+
+.leaderboard-ul {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 4fr 1fr 1fr;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .popup {

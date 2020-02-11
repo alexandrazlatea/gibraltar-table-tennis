@@ -18,6 +18,7 @@ class Schedule extends Component {
             teamA: '',
             teamB: '',
             round: '',
+            renderView: '',
             open: false,
         };
     }
@@ -25,9 +26,15 @@ class Schedule extends Component {
     componentDidMount() {
         this.props.fetchSchedule();
     }
+    componentDidUpdate(prevProp, prevState) {
+        if (prevState.renderView != this.state.renderView) {
+            this.props.fetchSchedule();
+        }
+    }
     componentWillReceiveProps(nextProps) {
         this.setState({
             schedule: nextProps.schedule,
+            renderView: nextProps.renderView
         });
 
     }
@@ -92,9 +99,10 @@ class Schedule extends Component {
 function mapStateToProps(state) {
     return {
         schedule: state.schedule,
+        renderView: state.renderView,
+
     }
 }
-
 function mapDispatchtoProps(dispatch) {
     return bindActionCreators({fetchSchedule}, dispatch);
 }
