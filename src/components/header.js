@@ -56,7 +56,7 @@ class Header extends React.Component {
         let league_type = this.state.leagueType == 1 ? 2 : 1;
         localStorage['league_type'] = league_type;
         this.setState({leagueType: league_type});
-        this.props.renderView(Math.floor(Math.random() * 90 + 10));
+        this.props.renderView(Math.floor(Math.random() * 90 + 20));
     }
 
     onClickLogout = () => {

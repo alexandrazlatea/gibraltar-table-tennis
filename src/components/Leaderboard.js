@@ -3,6 +3,7 @@ import React from 'react';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {fetchLeaderboard}  from '../actions/index';
+import {renderView} from "../actions/index";
 
 
 class Leaderboard extends React.Component {
@@ -10,6 +11,8 @@ class Leaderboard extends React.Component {
         super(props);
         this.state = {
             leaderboard: [],
+            renderView: '',
+
         };
     }
 
@@ -17,12 +20,21 @@ class Leaderboard extends React.Component {
         this.props.fetchLeaderboard();
     }
 
+    componentDidUpdate(prevProp, prevState) {
+        if (prevState.renderView != this.state.renderView) {
+            this.props.fetchLeaderboard();
+        }
+    }
+
     componentWillUnmount() {
         clearInterval(this.interval);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({leaderboard: nextProps.leaderboard});
+        this.setState({
+            leaderboard: nextProps.leaderboard,
+            renderView: nextProps.renderView
+        });
     }
     compare = (a, b) => {
         return b.total - a.total;
@@ -67,11 +79,12 @@ class Leaderboard extends React.Component {
 function mapStateToProps(state) {
     return {
         leaderboard: state.leaderboard,
+        renderView: state.renderView
     }
 }
 
 function mapDispatchtoProps(dispatch) {
-    return bindActionCreators({fetchLeaderboard}, dispatch);
+    return bindActionCreators({fetchLeaderboard, renderView}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Leaderboard);
