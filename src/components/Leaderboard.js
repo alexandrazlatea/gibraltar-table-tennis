@@ -53,8 +53,8 @@ class Leaderboard extends React.Component {
                     <ul className="leaderboard-ul leaderboard-ul-header">
                         <li><span>Rank</span></li>
                         <li><span>Name</span></li>
-                        <li><span>Games Played</span></li>
-                        <li><span>Points</span></li>
+                        <li><span>Played</span></li>
+                        <li><span>Total</span></li>
                     </ul>
                     {this.renderLeaderboard()}
                 </div>
