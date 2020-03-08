@@ -4,6 +4,7 @@ import {fire} from "../fire";
 import Ranking from '../components/Ranking';
 import Schedule from '../components/Schedule';
 import Leaderboard from '../components/Leaderboard';
+import IndividualRanking from '../components/IndividualRanking';
 import {bindActionCreators} from "redux";
 import {renderView} from "../actions/index";
 import {connect} from "react-redux";
@@ -21,8 +22,6 @@ class HomepageSection extends React.Component {
             renderView: '',
             selected: 'schedule',
             leagueType:  (localStorage['league_type']) ? localStorage['league_type'] : 1
-
-
     };
     }
 
@@ -69,11 +68,13 @@ class HomepageSection extends React.Component {
                            {this.state.leagueType ==1 && <div className={this.isActive('teams')} onClick={this.setFilter.bind(this, 'teams')}>Teams</div>}
                            {/*<div className={this.isActive('participants')} onClick={this.setFilter.bind(this, 'participants')}>Participants</div>*/}
                            <div className={this.isActive('leaderboard')} onClick={this.setFilter.bind(this, 'leaderboard')}>Ranking</div>
+                           {this.state.leagueType ==2 && <div className={this.isActive('individual')} onClick={this.setFilter.bind(this, 'individual')}>Individual</div>}
                        </div>
                         {this.state.selected === 'schedule' && <Schedule/> }
                         {this.state.selected === 'teams' && localStorage['league_type'] == 1 && <Ranking type="teams"/> }
                        {/*{this.state.selected === 'participants' && <Ranking type="participants"/> }*/}
                        {this.state.selected === 'leaderboard' && <Leaderboard type="participants"/> }
+                       {this.state.selected === 'individual' && <IndividualRanking type="individual"/> }
                     </div>
                 </div>
             </section>
